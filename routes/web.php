@@ -15,3 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('athletes', 'AthleteControllers@index');
+Route::get('countries', 'countriesController@index');
