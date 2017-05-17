@@ -17,6 +17,7 @@ class CreateBranchSportsTable extends Migration
             $table->increments('id');
             $table->string('icon');
             $table->string('name');
+            $table->text('description');
             $table->double('latitude');
             $table->double('longitude');
             $table->string('photo');
