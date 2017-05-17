@@ -17,3 +17,4 @@ Route::get('/', function () {
 Route::get('athletes', 'AthleteControllers@index');
 Route::get('countries', 'CountriesController@index');
 Route::get('branch_sports', 'BranchSportController@index');
+Route::get('tour', 'TourController@index');
