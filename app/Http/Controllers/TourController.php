@@ -87,7 +87,7 @@ class TourController extends Controller
 
         $inputJSON = file_get_contents('php://input');
         $decode = json_decode($inputJSON, true);
-        
+        //a
         $get_lat = $decode['data'][0]['latitude'];
         $get_long = $decode['data'][0]['longitude'];
 

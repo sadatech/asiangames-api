@@ -86,7 +86,6 @@ class BranchSportController extends Controller
     }
     public function nearby_competition()
     {
-
         $inputJSON = file_get_contents('php://input');
         $decode = json_decode($inputJSON, true);
         
