@@ -18,4 +18,11 @@ Route::get('athletes', 'AthleteControllers@index');
 Route::get('countries', 'CountriesController@index');
 Route::get('branch_sports', 'BranchSportController@index');
 Route::get('tour', 'TourController@index');
+<<<<<<< HEAD
+// Route::get('nearby_competition', 'BranchSportController@nearby_competition');
+Route::post('nearby_competition', 'BranchSportController@nearby_competition');
+Route::post('nearby_tour', 'TourController@nearby_competition');
+// Route::post('nearby_competition', ['middleware' => 'csrf', 'uses' => 'BranchSportController@nearby_competition']);
+=======
 Route::get('nearby_competition', 'BranchSportController@nearby_competition');
+>>>>>>> a02d6f5c1c684895f30153bb7a721632b8da6673
