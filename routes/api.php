@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('athletes', 'AthleteControllers@index');
+Route::get('countries', 'CountriesController@index');
+Route::get('branch_sports', 'BranchSportController@index');
+Route::get('tour', 'TourController@index');
+// Route::get('nearby_competition', 'BranchSportController@nearby_competition');
+Route::post('nearby_competition', 'BranchSportController@nearby_competition');
+Route::post('nearby_tour', 'TourController@nearby_competition');
