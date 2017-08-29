@@ -16,6 +16,7 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth']], function () {
 	Route::get('/', 'DashboardController@index');
+	Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 });
 
 Auth::routes();
