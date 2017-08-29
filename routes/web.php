@@ -10,14 +10,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
-Route::get('athletes', 'AthleteControllers@index');
-Route::get('countries', 'CountriesController@index');
-Route::get('branch_sports', 'BranchSportController@index');
-Route::get('tour', 'TourController@index');
-// Route::get('nearby_competition', 'BranchSportController@nearby_competition');
-Route::post('nearby_competition', 'BranchSportController@nearby_competition');
-Route::post('nearby_tour', 'TourController@nearby_competition');
+
+Route::group(['middleware' => ['auth']], function () {
+	Route::get('/', 'DashboardController@index');
+	Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+});
+
+Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');
