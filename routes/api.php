@@ -15,12 +15,12 @@ use Illuminate\Http\Request;
 
 /* No Authentication Route */
 
-Route::get('athletes', 'AthleteControllers@index');
-Route::get('countries', 'CountriesController@index');
-Route::get('branch_sports', 'BranchSportController@index');
-Route::get('tour', 'TourController@index');
-Route::post('nearby_competition', 'BranchSportController@nearby_competition');
-Route::post('nearby_tour', 'TourController@nearby_competition');
+Route::get('athletes', 'Api\AthleteControllers@index');
+Route::get('countries', 'Api\CountriesController@index');
+Route::get('branch_sports', 'Api\BranchSportController@index');
+Route::get('tour', 'Api\TourController@index');
+Route::post('nearby_competition', 'Api\BranchSportController@nearby_competition');
+Route::post('nearby_tour', 'Api\TourController@nearby_competition');
 
 /* JWT Authentication */
 
