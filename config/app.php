@@ -236,6 +236,7 @@ return [
         'JWTFactory' => 'Tymon\JWTAuth\Facades\JWTFactory',
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
 
     ],
 

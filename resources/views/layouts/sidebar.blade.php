@@ -21,25 +21,28 @@
                             </a>
                         </li>
                         <li class="nav-item start active open">
-                            <a href="{{ url('/ok') }}" class="nav-link nav-toggle">
+                            <a href="#" class="nav-link nav-toggle">
                                 <i class="icon-notebook"></i>
                                 <span class="title">Sports Management</span>
-                                <span class="arrow open"></span>                                
+                                @if(Request::is('branchsport'))                        
+                                    <span class="selected"></span>                 
+                                @endif
+                                <span class="arrow open"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li class="nav-item start ">
-                                    <a href="#" class="nav-link ">
+                                <li class="nav-item start {{ Request::is('branchsport') ? 'open' : '' }}">
+                                    <a href="{{ url('/branchsport') }}" class="nav-link ">
                                         <i class="icon-social-dribbble"></i>
-                                        <span class="title">Sports</span>                                        
-                                    </a>
+                                        <span class="title">Branch Sports</span>
+                                    </a>                                    
                                 </li>
-                                <li class="nav-item start ">
+                                <li class="nav-item start {{ Request::is('kindsport') ? 'open' : '' }}">
                                     <a href="#" class="nav-link ">
                                         <i class="icon-support"></i>
                                         <span class="title">Kind of Sports</span>                                        
                                     </a>
                                 </li>
-                                <li class="nav-item start ">
+                                <li class="nav-item start {{ Request::is('typesport') ? 'open' : '' }}">
                                     <a href="#" class="nav-link ">
                                         <i class="icon-screen-tablet"></i>
                                         <span class="title">Type of Sports</span>                                        

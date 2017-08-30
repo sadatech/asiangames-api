@@ -17,7 +17,12 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth']], function () {
 	Route::get('/', 'DashboardController@index');
 	Route::get('/ok', 'DashboardController@index');
-	Route::get('/ok/just', 'DashboardController@index')->name('tes');	
+
+	// Branch Sports
+	Route::get('/branchsport', 'Master\BranchSportController@index');
+
+	// Datatables
+	Route::get('datatable/sports', ['as'=> 'datatable.sports','uses'=>'Master\BranchSportController@getData']);
 });
 
 Auth::routes();

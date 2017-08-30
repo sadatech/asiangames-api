@@ -35,6 +35,9 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="{{ asset('assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css') }}" rel="stylesheet" type="text/css" />
         <!-- END GLOBAL MANDATORY STYLES -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link href="{{ asset('assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css') }}" rel="stylesheet"
+          type="text/css"/>
         <link href="{{ asset('assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('assets/global/plugins/morris/morris.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('assets/global/plugins/fullcalendar/fullcalendar.min.css') }}" rel="stylesheet" type="text/css" />
@@ -49,6 +52,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="{{ asset('assets/layouts/layout2/css/themes/blue.min.css') }}" rel="stylesheet" type="text/css" id="style_color" />
         <link href="{{ asset('assets/layouts/layout2/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
         <!-- END THEME LAYOUT STYLES -->
+        
+    
         <link rel="shortcut icon" href="favicon.ico" /> </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid">
     <div class="page-header navbar navbar-fixed-top">
@@ -130,7 +135,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <i class="icon-arrow-up"></i>
         </div>
     </div>
-    <!-- Scripts -->
+    <!-- Scripts -->    
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/plugins/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
@@ -182,5 +187,15 @@ License: You must have a valid license purchased only from themeforest(the above
         <script src="{{ asset('assets/layouts/layout2/scripts/layout.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/layouts/layout2/scripts/demo.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/layouts/global/scripts/quick-sidebar.min.js') }}" type="text/javascript"></script>
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <script src="{{ ('assets/global/scripts/datatable.js') }}" type="text/javascript"></script>
+        <script src="{{ ('assets/global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
+        <script src="{{ ('assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}"
+        type="text/javascript"></script>
+        <script src="{{ ('assets/pages/scripts/table-datatables-editable.min.js') }}" type="text/javascript"></script>
+        <!-- END PAGE LEVEL SCRIPTS -->
+
+    @yield('additional-scripts')
+
 </body>
 </html>

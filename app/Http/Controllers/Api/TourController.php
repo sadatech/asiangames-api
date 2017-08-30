@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Country;
+use App\Tour;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class CountriesController extends Controller
+class TourController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class CountriesController extends Controller
      */
     public function index()
     {
-        return response()->json(Country::get());
+        return response()->json(Tour::get());
     }
 
     /**
@@ -81,5 +82,28 @@ class CountriesController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function nearby_tour()
+    {
+
+        $inputJSON = file_get_contents('php://input');
+        $decode = json_decode($inputJSON, true);
+        //a
+        $get_lat = $decode['data'][0]['latitude'];
+        $get_long = $decode['data'][0]['longitude'];
+
+        $branch_sport = Tour::get();
+        foreach ($branch_sport as $branch) {
+            $datamaps = file_get_contents("https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=".$get_lat.",".$get_long."&destinations=".$branch['latitude'].",".$branch['longitude']."&key=%20AIzaSyCWpwVwu1hO6TJW1H8x_zlhrLfbSbQ2r3o");
+            $decode_maps = json_decode($datamaps,true);
+            $distance = $decode_maps['rows'][0]['elements'][0]['distance']['value'];
+            // echo $distance."<br>";
+            if ($distance < 1500000) {
+                $data[] = $branch;
+            }else{
+                $data[] = "lewat";
+            }
+            return response()->json($data);
+        }
     }
 }
