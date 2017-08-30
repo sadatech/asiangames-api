@@ -16,9 +16,24 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth']], function () {
 	Route::get('/', 'DashboardController@index');
-	Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+	Route::get('/ok', 'DashboardController@index');
+	Route::get('/ok/just', 'DashboardController@index')->name('tes');	
 });
 
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
+// Fix method jika user logout lewat url
+Route::get('logout', 'Auth\LoginController@logout');
+
+// Buat batasin akses register, dan reset password
+Route::match(['get', 'post'], 'register', function(){
+    return redirect('/');
+});
+
+Route::match(['get', 'post'], 'password/reset', function(){
+    return redirect('/');
+});
+
+Route::match(['get', 'post'], 'password/email', function(){
+    return redirect('/');
+});
