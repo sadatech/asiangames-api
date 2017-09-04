@@ -24,14 +24,14 @@
                             <a href="#" class="nav-link nav-toggle">
                                 <i class="icon-notebook"></i>
                                 <span class="title">Sports Management</span>
-                                @if(Request::is('branchsport'))                        
+                                @if(Request::is('branchsport*'))                        
                                     <span class="selected"></span>                 
                                 @endif
                                 <span class="arrow open"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li class="nav-item start {{ Request::is('branchsport') ? 'open' : '' }}">
-                                    <a href="{{ url('/branchsport') }}" class="nav-link ">
+                                <li class="nav-item start {{ Request::is('branchsport*') ? 'open' : '' }}">
+                                    <a href="{{ url('branchsport') }}" class="nav-link ">
                                         <i class="icon-social-dribbble"></i>
                                         <span class="title">Branch Sports</span>
                                     </a>                                    
