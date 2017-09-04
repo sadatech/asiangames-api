@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Filter\QueryFilters;
+use App\Filters\QueryFilters;
 
 class BranchSport extends Model
 {
@@ -22,10 +22,17 @@ class BranchSport extends Model
      */
     protected $dates = ['deleted_at'];
 
+    /* Metode tambahan untuk model Branch Sport. */
+
     /**
-     * Metode tambahan untuk model Branch Sport.
+     * Relation Method(s).
      *
      */
+
+    public function kindSport()
+    {
+        return $this->hasMany('App\KindSport', 'branchsport_id');
+    }
 
     /**
      * Filtering Branch Sport Berdasarakan Request User

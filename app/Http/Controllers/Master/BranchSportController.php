@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Yajra\Datatables\Facades\Datatables;
 use App\Filters\BranchSportFilters;
+use App\Filters\QueryFilters;
 use App\Traits\UploadTrait;
 use Image;
 
 class BranchSportController extends Controller
 {
     use UploadTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -27,9 +29,31 @@ class BranchSportController extends Controller
         return view('master.branchsport');
     }
 
-    // Data for DataTables
-    public function getData(){
+    /**
+     * Data for DataTables
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function masterDataTable(){
+
         $data = BranchSport::all();        
+
+        return $this->makeTable($data);
+    }
+
+    // Data for DataTables with Filters
+    public function getDataWithFilters(BranchSportFilters $filters){        
+        
+        /* Note : kalo nanti butuh fungsi ->get() , tinggal ->get() di variable nya aja, 
+         * e.g : $data->get();
+         */
+        $data = BranchSport::filter($filters)->get();
+
+        return $data;
+    }
+
+    // Datatable template
+    public function makeTable($data){
 
         return Datatables::of($data)
                 ->editColumn('icon', function ($item) {
@@ -64,27 +88,18 @@ class BranchSportController extends Controller
                 })
                 ->rawColumns(['icon', 'photo', 'action'])
                 ->make(true);
+
     }
 
-    // Data for DataTables with Filters
-    public function getDataWithFilters(BranchSportFilters $filters){        
-        
-        /* Note : kalo nanti butuh fungsi ->get() , tinggal ->get() di variable nya aja, 
-         * e.g : $data->get();
-         */
-        $data = BranchSport::filter($filters);        
+    /**
+     * Data for select2
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getDataAll(){
+        $data = BranchSport::all();        
 
-        return Datatables::of($data)
-                ->editColumn('description', function ($item) {
-                    return str_limit($item['description'], 50);
-                })
-                ->addColumn('action', function ($item) {
-                    return 
-                    "<a href='".url('branchsport/edit/'.$item->id)."' class='btn btn-sm btn-warning'><i class='fa fa-pencil'></i></a>
-                    <button class='btn btn-danger btn-sm btn-delete deleteButton' data-toggle='confirmation' data-singleton='true' value='".$item->id."'><i class='fa fa-trash-o'></i></button>";
-                    
-                })
-                ->make(true);
+        return $data;
     }
 
     /**

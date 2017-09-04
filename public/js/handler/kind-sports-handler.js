@@ -5,10 +5,10 @@
 
 var FormValidation = function () {
 
-    // Branch Sports Master Validation
-    var branchSportsValidation = function() {
+    // Kind Sports Master Validation
+    var kindSportsValidation = function() {
 
-            var form = $('#form_branch_sports');
+            var form = $('#form_kind_sports');
             var errorAlert = $('.alert-danger', form);
             var successAlert = $('.alert-success', form);
 
@@ -20,22 +20,18 @@ var FormValidation = function () {
                 rules: {
                     name: {
                         minlength: 2,
-                        required: true
+                        required: true,
                     },
-                    location: {
-                        minlength: 2,
-                        required: true
+                    branchsport:{
+                        required: true,
                     },
-                    // icon: {
-                    //     accept: "image/jpg,image/jpeg,image/png,image/gif,image/svg"
-                    // },
 
                 },
-                // messages:{
-                //     icon:{
-                //         accept: "Please select an image file!"
-                //     }
-                // },
+                messages:{
+                    branchsport:{
+                        required: "Please select a Branch Sport!"
+                    }
+                },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
                     successAlert.hide();
@@ -44,17 +40,6 @@ var FormValidation = function () {
                 },
 
                 errorPlacement: function (error, element) { // render error placement for each input type
-                    // var icon = $(element).parent('.input-icon').children('i');
-                    // icon.removeClass('fa-check').addClass("fa-warning");  
-                    // icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
-
-                    // var span = $(element).parent('.input-group').children('span');
-                    // span.removeClass('display-hide');
-
-                    // var icon2 = $(span).children('i');
-                    // icon2.removeClass('fa-check').addClass("fa-warning");  
-                    // icon2.attr("data-original-title", error.text()).tooltip({'container': 'body'});
-
 
                     if (element.parent(".input-icon").size() > 0) {
 
@@ -85,12 +70,6 @@ var FormValidation = function () {
                     } else if (element.attr("data-error-container")) { 
 
                         error.appendTo(element.attr("data-error-container"));
-
-                        // For file type input
-                        // if($(element).attr('type') == 'file'){
-                        //     successAlert.hide();
-                        //     errorAlert.show();
-                        // }
 
                     } else if (element.parents('.mt-radio-list') || element.parents('.mt-checkbox-list')) {                        
                         if (element.parents('.mt-radio-list')[0]) {
@@ -137,7 +116,7 @@ var FormValidation = function () {
                 },
 
                 unhighlight: function (element) { // revert the change done by hightlight
-                  
+                
                 },
 
                 success: function (label, element) {
@@ -198,9 +177,7 @@ var FormValidation = function () {
                         processData: false,
                         contentType: false,
                         success: function (data) {
-
-                            // console.log(data);                            
-
+                            
                             var titleMsg;
                             var textMsg;
 
@@ -241,7 +218,7 @@ var FormValidation = function () {
         //main function to initiate the module
         init: function () {
 
-            branchSportsValidation();
+            kindSportsValidation();
 
         }
 
@@ -250,66 +227,37 @@ var FormValidation = function () {
 }();
 
 /*
- * Image upload handler
+ * Set up module
  *
- */
+ */ 
 
- var ImageHandler = function () {
+jQuery(document).ready(function() {
+    FormValidation.init();
+});
 
-    //File input change (to check upload just image [jpg, jpeg, png, gif, svg] & Max size 2048)
-    $("input:file").change(function (e){                
-        // error.appendTo();
-        // $(this).attr()
-        // alert($(this).parent('.input-group').children('.error_message'));
-        // $(this).parent('.input-group').children('.error_message')[0].innerHTML += "tes";
-        // alert($(this).parent('.input-group').children('.error_message')[0].innerHTML);
+/*
+ * Select2 validation
+ *
+ */ 
 
-        var form = $('#form_branch_sports');
+$(document.body).on("change",".select2select",function(){
+
+    if($(this).prop('required')) {
+
+        var form = $('#form_kind_sports');
         var errorAlert = $('.alert-danger', form);
         var successAlert = $('.alert-success', form);
-        var filename = $(this).val();          
-        var extension = filename.replace(/^.*\./, '');
-        var error_container = $(this).parent('.input-group').children('.file_error_message');
-        var error_message = '';
 
-        if (extension == filename) {
-            extension = '';
-        } else {                 
-            extension = extension.toLowerCase();
-        }
+        // set success class to the control group
+        $(this).closest('.form-group').removeClass('has-error').addClass('has-success');
 
-        switch (extension) {
-            case '':
-                $(this).closest('.form-group').removeClass("has-error");
-                $(this).closest('.form-group').removeClass("has-success");
-                break;
-            case 'jpg': case 'jpeg': case 'png': case 'gif': case 'svg':
+        // For select2 option
+        var span = $(this).parent('.input-group').children('.input-group-addon');
+        span.removeClass('display-hide');
 
-                if(typeof $(this)[0].files[0] !== 'undefined'){
-                    if(($(this)[0].files[0].size/1024) > 2048){
-                        $(this).closest('.form-group').removeClass("has-success").addClass("has-error");
-                        error_message = "Max file size reached!";
-                        break;
-                    }
-                }
-
-                $(this).closest('.form-group').removeClass("has-error").addClass("has-success");                        
-                break;
-
-            default:
-                $(this).closest('.form-group').removeClass("has-success").addClass("has-error");
-                error_message = "Please select an image type file like above!";
-                break;
-        }
-
-        if(error_message != ''){
-            error_container.removeAttr('style');
-            error_container[0].setAttribute("style","color: #e73d4a;");
-            error_container[0].innerHTML = "";
-            error_container[0].innerHTML = error_message;
-        }else{
-            error_container[0].setAttribute("style","display: none;");
-        }
+        var spanIcon = $(span).children('i');
+        spanIcon.removeClass('fa-warning').addClass("fa-check");
+        spanIcon.removeClass('font-red').addClass("font-green");
 
         // Check if all requirement valid and show success text
         if(errorAlert.is(":visible") || successAlert.is(":visible")){
@@ -329,18 +277,5 @@ var FormValidation = function () {
             }
         }
 
-        // $(this).closest('.form-group').addClass("has-success");
-    });
-
-
- };
-
-/*
- * Set up module
- *
- */ 
-
-jQuery(document).ready(function() {
-    FormValidation.init();
-    ImageHandler();
+    }
 });
