@@ -2,10 +2,10 @@
 
 namespace App\Filters;
 
-use App\BranchSport;
+use App\KindSport;
 use Illuminate\Http\Request;
 
-class BranchSportFilters extends QueryFilters
+class KindSportFilters extends QueryFilters
 {
 
     /**

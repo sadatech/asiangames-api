@@ -36,12 +36,22 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::patch('kindsport/{id}', 'Master\KindSportController@update');
 	Route::delete('kindsport/{id}', 'Master\KindSportController@destroy');
 
+	/** Type Sports **/
+	Route::get('typesport', 'Master\TypeSportController@index');
+	Route::get('typesport/create', 'Master\TypeSportController@create');
+	Route::post('typesport', 'Master\TypeSportController@store');
+	Route::get('typesport/edit/{id}', 'Master\TypeSportController@edit');
+	Route::patch('typesport/{id}', 'Master\TypeSportController@update');
+	Route::delete('typesport/{id}', 'Master\TypeSportController@destroy');
+
 	/* Datatables */
 	Route::post('datatable/branchsports', ['as'=> 'datatable.branchsports','uses'=>'Master\BranchSportController@masterDataTable']);
 	Route::post('datatable/kindsports', ['as'=> 'datatable.kindsports','uses'=>'Master\KindSportController@masterDataTable']);
+	Route::post('datatable/typesports', ['as'=> 'datatable.typesports','uses'=>'Master\TypeSportController@masterDataTable']);
 
 	/* Select2 */
 	Route::post('data/branchsports', ['as'=> 'data.branchsports','uses'=>'Master\BranchSportController@getDataWithFilters']);
+	Route::post('data/kindsports', ['as'=> 'data.kindsports','uses'=>'Master\KindSportController@getDataWithFilters']);
 });
 
 Auth::routes();

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('header')
-<h1 class="page-title"> Kind Sports
-	<small>Manage Kind Sports</small>
+<h1 class="page-title"> Type Sports
+	<small>Manage Type Sports</small>
 </h1>
 <div class="page-bar">
 	<ul class="page-breadcrumb">
@@ -12,15 +12,15 @@
 			<i class="fa fa-angle-right"></i>
 		</li>
 		<li>			
-			<a href="{{ url('kindsport') }}">Kind Sports Management</a>
+			<a href="{{ url('typesport') }}">Type Sports Management</a>
 			<i class="fa fa-angle-right"></i>
 		</li>
 		<li>
 			<span>
 				@if (empty($data))
-					Add New Kind Sports
+					Add New Type Sports
 				@else
-					Update Kind Sports
+					Update Type Sports
 				@endif
 			</span>
 		</li>
@@ -36,25 +36,25 @@
 	    <div class="portlet light bordered">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="icon-support font-green"></i>
+					<i class="icon-screen-tablet font-green"></i>
 					<span class="caption-subject font-green sbold uppercase">
 						@if (empty($data))
-							ADD NEW KIND SPORTS
+							ADD NEW TYPE SPORTS
 						@else
-							UPDATE KIND SPORTS
+							UPDATE TYPE SPORTS
 						@endif
 					</span>
 				</div>
 
 				<div class="btn-group" style="float: right; padding-top: 2px; padding-right: 10px;">
-                	<a class="btn btn-md green" href="{{ url('kindsport/') }}">
+                	<a class="btn btn-md green" href="{{ url('typesport/') }}">
                 		<i class="fa fa-chevron-left"></i> Back
                 	</a>
 				</div>
 	        </div>
 	        <div class="portlet-body" style="padding: 15px;">
 	        	<!-- MAIN CONTENT -->
-	        	<form id="form_kind_sports" class="form-horizontal" action="{{ url('kindsport', @$data->id) }}" method="POST">	        	
+	        	<form id="form_type_sports" class="form-horizontal" action="{{ url('typesport', @$data->id) }}" method="POST">	        	
 			        {{ csrf_field() }}
 			        @if (!empty($data))
 			          {{ method_field('PATCH') }}
@@ -81,12 +81,12 @@
 				        </div>
 
 				        <div class="form-group">
-				          <label class="col-sm-2 control-label">Branch Sport</label>
+				          <label class="col-sm-2 control-label">Kind Sport</label>
 				          <div class="col-sm-9">
 
 				          <div class="input-group" style="width: 100%;">
      
-                                <select class="select2select" name="branchsport_id" id="branchsport" required></select>
+                                <select class="select2select" name="kindsport_id" id="kindsport" required></select>
                                	
                                 <span class="input-group-addon display-hide">
                                 	<i class="fa"></i>
@@ -125,7 +125,7 @@
 
 @section('additional-scripts')	
 	<!-- BEGIN PAGE VALIDATION SCRIPTS -->
-    <script src="{{ asset('js/handler/kind-sports-handler.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/handler/type-sports-handler.js') }}" type="text/javascript"></script>
     <!-- END PAGE VALIDATION SCRIPTS -->
     <!-- BEGIN SELECT2 SCRIPTS -->
     <script src="{{ asset('js/handler/select2-handler.js') }}" type="text/javascript"></script>
@@ -138,7 +138,7 @@
 	            }
 	        });
 
-	       $('#branchsport').select2(setOptions('{{ route("data.branchsports") }}', 'Branch Sport', function (params) {
+	       $('#kindsport').select2(setOptions('{{ route("data.kindsports") }}', 'Kind Sport', function (params) {
                         // console.log(params);
                         return filterData('name', params.term);
                     }, function (data, params) {
@@ -150,7 +150,7 @@
                     }));
 
 	       // Set select2 => 'branchsport' if method PATCH	       
-	       setIfPatch($("#branchsport"), "{{ @$data->branchsport_id }}", "{{ @$data->branchSport->name }}");	     	      
+	       setIfPatch($("#kindsport"), "{{ @$data->kindsport_id }}", "{{ @$data->kindSport->name }}");	     	      
 
 		});
 	</script>
