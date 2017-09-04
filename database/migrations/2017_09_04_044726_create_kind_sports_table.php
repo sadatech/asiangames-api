@@ -15,6 +15,7 @@ class CreateKindSportsTable extends Migration
     {
         Schema::create('kind_sports', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->timestamps();
         });
     }
