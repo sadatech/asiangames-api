@@ -71,3 +71,6 @@ Route::match(['get', 'post'], 'password/reset', function(){
 Route::match(['get', 'post'], 'password/email', function(){
     return redirect('/');
 });
+
+/* Method untuk daftar admin ketika aplikasi first run */
+Route::get('createadmin', 'Auth\OnceController@createAdmin');
