@@ -16,13 +16,18 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth']], function () {
 	Route::get('/', 'DashboardController@index');
-	Route::get('/ok', 'DashboardController@index');
+	Route::get('ok', 'DashboardController@index');
 
 	// Branch Sports
-	Route::get('/branchsport', 'Master\BranchSportController@index');
+	Route::get('branchsport', 'Master\BranchSportController@index');
+	Route::get('branchsport/create', 'Master\BranchSportController@create');
+	Route::post('branchsport', 'Master\BranchSportController@store');
+	Route::get('branchsport/edit/{id}', 'Master\BranchSportController@edit');
+	Route::patch('branchsport/{id}', 'Master\BranchSportController@update');
+	Route::delete('branchsport/{id}', 'Master\BranchSportController@destroy');
 
 	// Datatables
-	Route::get('datatable/sports', ['as'=> 'datatable.sports','uses'=>'Master\BranchSportController@getData']);
+	Route::post('datatable/sports', ['as'=> 'datatable.sports','uses'=>'Master\BranchSportController@getData']);
 });
 
 Auth::routes();
