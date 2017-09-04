@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('header')
-<h1 class="page-title"> Branch Sports
-	<small>Manage Branch Sports</small>
+<h1 class="page-title"> Kind Sports
+	<small>Manage Kind Sports</small>
 </h1>
 <div class="page-bar">
 	<ul class="page-breadcrumb">
@@ -12,7 +12,7 @@
 			<i class="fa fa-angle-right"></i>
 		</li>
 		<li>
-			<span>Branch Sports Management</span>
+			<span>Kind Sports Management</span>
 		</li>
 	</ul>                        
 </div>
@@ -26,8 +26,8 @@
 	    <div class="portlet light bordered">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="icon-social-dribbble font-green"></i>
-					<span class="caption-subject font-green sbold uppercase">BRANCH SPORTS</span>
+					<i class="icon-support font-green"></i>
+					<span class="caption-subject font-green sbold uppercase">KIND SPORTS</span>
 				</div>
 	        </div>
 	        <div class="portlet-body" style="padding: 15px;">
@@ -36,7 +36,7 @@
                 	<div class="row">
                     	<div class="col-md-6">
                         	<div class="btn-group">
-                             	<a class="btn green" href="{{ url('branchsport/create') }}"><i
+                             	<a class="btn green" href="{{ url('kindsport/create') }}"><i
 									class="fa fa-plus"></i> Add New </a>
 
                             </div>
@@ -44,26 +44,17 @@
                     </div>
                 </div>
 
-	        	<table class="table table-striped table-hover table-bordered" id="sportsTable" style="white-space: nowrap;">
+	        	<table class="table table-striped table-hover table-bordered" id="kindsportsTable" style="white-space: nowrap;">
                 	<thead>
                     	<tr>
-                    		<th> No. </th>
-                            <th> Icon </th>
-                        	<th> Sport Name </th>
-							<th> Location </th>
+                    		<th> No. </th>                            
+                        	<th> Kind Sport's Name </th>
+                            <th> Branch Sport </th>
                             <th> Description </th>
-                            <th> Photo </th>
                             <th> Options </th>                             
                         </tr>
                     </thead>
 				</table>
-
-                <!-- BEGIN IMAGE MODAL POPUP -->
-                <div id="myModal" class="image-modal">
-                  <span class="image-modal-close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
-                  <img class="image-modal-content" id="image-popup">
-                </div>
-                <!-- END IMAGE MODAL POPUP -->
 
 				<!-- END MAIN CONTENT -->
 			</div>
@@ -75,10 +66,6 @@
 
 @section('additional-scripts')
 
-<!-- BEGIN IMAGE MODAL SCRIPTS -->
-<script src="{{ asset('js/image-modal/popup.js') }}" type="text/javascript"></script>
-<!-- END IMAGE MODAL SCRIPTS -->
-
 <script>
 	$(document).ready(function () {    	
 
@@ -88,22 +75,20 @@
             }
         });
 
-        // Set data for Data Table '#sportsTable'
-        var table = $('#sportsTable').dataTable({
+        // Set data for Data Table '#kindsportsTable'
+        var table = $('#kindsportsTable').dataTable({
 	        "processing": true,
 	        "serverSide": true,	          
 	        "ajax": {
-                url: "{{ route('datatable.branchsports') }}",
+                url: "{{ route('datatable.kindsports') }}",
                 type: 'POST',
             },
 	        "rowId": "id",
 	        "columns": [
 	            {data: 'id', name: 'id'},
-                {data: 'icon', name: 'icon', searchable: false, sortable: false},
 	            {data: 'name', name: 'name'},
-	            {data: 'location', name: 'location'},
+                {data: 'branchsport_id', name: 'branchsport_id'},
 	            {data: 'description', name: 'description', sortable: false},
-                {data: 'photo', name: 'photo', searchable: false, sortable: false},
 	            {data: 'action', name: 'action', searchable: false, sortable: false},                
 	        ],
 	        "columnDefs": [
@@ -114,7 +99,7 @@
 
 
     	// Delete data with sweet alert
-        $('#sportsTable').on('click', 'tr td button.deleteButton', function () {
+        $('#kindsportsTable').on('click', 'tr td button.deleteButton', function () {
             var id = $(this).val();
             	swal({
 					title: "Are you sure?",
@@ -139,7 +124,7 @@
                         $.ajax({
 
                             type: "DELETE",
-                            url:  'branchsport/' + id,
+                            url:  'kindsport/' + id,
                             success: function (data) {
                                 console.log(data);
 
@@ -158,14 +143,6 @@
                 });
         });
 
-
-
-  //   	swal({
-		//   title: "Error!",
-		//   text: "Here's my error message!",
-		//   type: "error",
-		//   confirmButtonText: "Cool"
-		// });	
 
     });
 </script>

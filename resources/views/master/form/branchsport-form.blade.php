@@ -45,6 +45,12 @@
 						@endif
 					</span>
 				</div>
+
+				<div class="btn-group" style="float: right; padding-top: 2px; padding-right: 10px;">
+                	<a class="btn btn-md green" href="{{ url('branchsport/') }}">
+                		<i class="fa fa-chevron-left"></i> Back
+                	</a>
+				</div>
 	        </div>
 	        <div class="portlet-body" style="padding: 15px;">
 	        	<!-- MAIN CONTENT -->

@@ -24,7 +24,7 @@
                             <a href="#" class="nav-link nav-toggle">
                                 <i class="icon-notebook"></i>
                                 <span class="title">Sports Management</span>
-                                @if(Request::is('branchsport*'))                        
+                                @if(Request::is('branchsport*') || Request::is('kindsport*'))                        
                                     <span class="selected"></span>                 
                                 @endif
                                 <span class="arrow open"></span>
@@ -36,8 +36,8 @@
                                         <span class="title">Branch Sports</span>
                                     </a>                                    
                                 </li>
-                                <li class="nav-item start {{ Request::is('kindsport') ? 'open' : '' }}">
-                                    <a href="#" class="nav-link ">
+                                <li class="nav-item start {{ Request::is('kindsport*') ? 'open' : '' }}">
+                                    <a href="{{ url('kindsport') }}" class="nav-link ">
                                         <i class="icon-support"></i>
                                         <span class="title">Kind of Sports</span>                                        
                                     </a>

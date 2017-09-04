@@ -15,8 +15,12 @@ class CreateKindSportsTable extends Migration
     {
         Schema::create('kind_sports', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('branchsport_id')->unsigned();
+            $table->foreign('branchsport_id')->references('id')->on('branch_sports');
             $table->string('name');
+            $table->string('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
