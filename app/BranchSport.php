@@ -29,7 +29,7 @@ class BranchSport extends Model
      *
      */
 
-    public function kindSport()
+    public function kindSports()
     {
         return $this->hasMany('App\KindSport', 'branchsport_id');
     }

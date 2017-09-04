@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Filter\QueryFilters;
+use App\Filters\QueryFilters;
 
 class KindSport extends Model
 {
@@ -32,6 +32,22 @@ class KindSport extends Model
     public function branchSport()
     {
         return $this->belongsTo('App\BranchSport', 'branchsport_id');
+    }
+
+    public function typeSports()
+    {
+        return $this->hasMany('App\TypeSport', 'kindsport_id');
+    }
+
+    /**
+     * Filtering Branch Sport Berdasarakan Request User
+     * @param $query
+     * @param QueryFilters $filters
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeFilter($query, QueryFilters $filters)
+    {
+        return $filters->apply($query);
     }
 
 }

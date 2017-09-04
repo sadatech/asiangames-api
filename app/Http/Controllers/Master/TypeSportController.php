@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Master;
 
-use App\KindSport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\TypeSport;
 use Yajra\Datatables\Facades\Datatables;
 use App\Filters\KindSportFilters;
 
-class KindSportController extends Controller
+class TypeSportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class KindSportController extends Controller
      */
     public function index()
     {
-        return view('master.kindsport');
+        return view('master.typesport');
     }
 
     /**
@@ -26,28 +26,17 @@ class KindSportController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function masterDataTable(){
-        $data = KindSport::all();        
+        $data = TypeSport::all();        
 
         return $this->makeTable($data);
-    }
-
-    // Data for DataTables with Filters
-    public function getDataWithFilters(KindSportFilters $filters){        
-        
-        /* Note : kalo nanti butuh fungsi ->get() , tinggal ->get() di variable nya aja, 
-         * e.g : $data->get();
-         */
-        $data = KindSport::filter($filters)->get();
-
-        return $data;
     }
 
     // Datatable template
     public function makeTable($data){
 
         return Datatables::of($data)
-                ->editColumn('branchsport_id', function ($item) {
-                    return $item->branchSport->name;
+                ->editColumn('kindsport_id', function ($item) {
+                    return $item->kindSport->name;
                 })              
                 ->editColumn('description', function ($item) {
                     return str_limit($item['description'], 50);
@@ -55,7 +44,7 @@ class KindSportController extends Controller
                 ->addColumn('action', function ($item) {
 
                     return 
-                    "<a href='".url('kindsport/edit/'.$item->id)."' class='btn btn-sm btn-warning'><i class='fa fa-pencil'></i></a>
+                    "<a href='".url('typesport/edit/'.$item->id)."' class='btn btn-sm btn-warning'><i class='fa fa-pencil'></i></a>
                     <button class='btn btn-danger btn-sm btn-delete deleteButton' data-toggle='confirmation' data-singleton='true' value='".$item->id."'><i class='fa fa-trash-o'></i></button>";
                     
                 })
@@ -71,7 +60,7 @@ class KindSportController extends Controller
      */
     public function create()
     {
-        return view('master.form.kindsport-form');
+        return view('master.form.typesport-form');
     }
 
     /**
@@ -82,16 +71,16 @@ class KindSportController extends Controller
      */
     public function store(Request $request)
     {
-    	// return $request->all();
+        // return $request->all();
 
         $this->validate($request, [
             'name' => 'required',
-            'branchsport_id' => 'required',
+            'kindsport_id' => 'required',
             ]);
 
-       	$kindSport = KindSport::create($request->all());
+       	$typeSport = TypeSport::create($request->all());       	
         
-        return response()->json(['responseText' => 'Success!', 'url' => url('/kindsport')]);
+        return response()->json(['responseText' => 'Success!', 'url' => url('/typesport')]);
     }
 
     /**
@@ -113,9 +102,9 @@ class KindSportController extends Controller
      */
     public function edit($id)
     {
-        $data = KindSport::where('id', $id)->first();
+        $data = TypeSport::where('id', $id)->first();
 
-        return view('master.form.kindsport-form', compact('data'));
+        return view('master.form.typesport-form', compact('data'));
     }
 
     /**
@@ -129,15 +118,15 @@ class KindSportController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'branchsport_id' => 'required',
+            'kindsport_id' => 'required',
             ]);
 
-        $kindSport = KindSport::find($id)->update($request->all());
+        $typeSport = TypeSport::find($id)->update($request->all());
 
         return response()->json(
             [
                 'responseText' => 'Success!', 
-                'url' => url('/kindsport'),
+                'url' => url('/typesport'),
                 'method' => $request->_method
             ]);  
     }
@@ -150,7 +139,7 @@ class KindSportController extends Controller
      */
     public function destroy($id)
     {
-        $kindSport = KindSport::destroy($id);
+        $typeSport = TypeSport::destroy($id);
 
         return response()->json($id);
     }
