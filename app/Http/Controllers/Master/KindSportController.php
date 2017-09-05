@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Yajra\Datatables\Facades\Datatables;
 use App\Filters\KindSportFilters;
+use DB;
 
 class KindSportController extends Controller
 {
@@ -26,7 +27,12 @@ class KindSportController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function masterDataTable(){
-        $data = KindSport::all();        
+
+        $data = DB::table('kind_sports')
+                    ->join('branch_sports', 'kind_sports.branchsport_id', '=', 'branch_sports.id')
+                    ->select('kind_sports.*', 'branch_sports.name as branchsport_name')->get();
+
+                    // dd($data2);
 
         return $this->makeTable($data);
     }
@@ -46,11 +52,8 @@ class KindSportController extends Controller
     public function makeTable($data){
 
         return Datatables::of($data)
-                ->editColumn('branchsport_id', function ($item) {
-                    return $item->branchSport->name;
-                })              
                 ->editColumn('description', function ($item) {
-                    return str_limit($item['description'], 50);
+                    return str_limit($item->description, 50);                    
                 })
                 ->addColumn('action', function ($item) {
 

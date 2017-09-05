@@ -49,9 +49,9 @@
                     	<tr>
                     		<th> No. </th>                            
                         	<th> Kind Sport's Name </th>
-                            <th> Branch Sport </th>
+                            <th> Branch Sport </th>                            
                             <th> Description </th>
-                            <th> Options </th>                             
+                            <th> Options </th>                        
                         </tr>
                     </thead>
 				</table>
@@ -91,9 +91,9 @@
 	        "columns": [
 	            {data: 'id', name: 'id'},
 	            {data: 'name', name: 'name'},
-                {data: 'branchsport_id', name: 'branchsport_id'},
+                {data: 'branchsport_name', name: 'branchsport_name'},                
 	            {data: 'description', name: 'description', sortable: false},
-	            {data: 'action', name: 'action', searchable: false, sortable: false},                
+	            {data: 'action', name: 'action', searchable: false, sortable: false},           
 	        ],
 	        "columnDefs": [
         		{"className": "dt-center", "targets": [0]}

@@ -87,7 +87,7 @@
 	        "columns": [
 	            {data: 'id', name: 'id'},
 	            {data: 'name', name: 'name'},
-                {data: 'kindsport_id', name: 'kindsport_id'},
+                {data: 'kindsport_name', name: 'kindsport_name'},
 	            {data: 'description', name: 'description', sortable: false},
 	            {data: 'action', name: 'action', searchable: false, sortable: false},                
 	        ],
