@@ -10,6 +10,7 @@ use App\Filters\BranchSportFilters;
 use App\Filters\QueryFilters;
 use App\Traits\UploadTrait;
 use Image;
+use DB;
 
 class BranchSportController extends Controller
 {
@@ -36,7 +37,7 @@ class BranchSportController extends Controller
      */
     public function masterDataTable(){
 
-        $data = BranchSport::all();        
+        $data = DB::table('branch_sports');     
 
         return $this->makeTable($data);
     }
@@ -62,7 +63,7 @@ class BranchSportController extends Controller
                     
                 })
                 ->editColumn('description', function ($item) {
-                    return str_limit($item['description'], 50);
+                    return str_limit($item->description, 50);
                 })
                 ->editColumn('photo', function ($item) {
                     try{

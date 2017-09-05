@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\TypeSport;
 use Yajra\Datatables\Facades\Datatables;
 use App\Filters\KindSportFilters;
+use DB;
 
 class TypeSportController extends Controller
 {
@@ -26,7 +27,10 @@ class TypeSportController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function masterDataTable(){
-        $data = TypeSport::all();        
+
+        $data = DB::table('type_sports')
+                    ->join('kind_sports', 'type_sports.kindsport_id', '=', 'kind_sports.id')
+                    ->select('type_sports.*', 'kind_sports.name as kindsport_name')->get();
 
         return $this->makeTable($data);
     }
@@ -34,12 +38,9 @@ class TypeSportController extends Controller
     // Datatable template
     public function makeTable($data){
 
-        return Datatables::of($data)
-                ->editColumn('kindsport_id', function ($item) {
-                    return $item->kindSport->name;
-                })              
+        return Datatables::of($data)             
                 ->editColumn('description', function ($item) {
-                    return str_limit($item['description'], 50);
+                    return str_limit($item->description, 50);
                 })
                 ->addColumn('action', function ($item) {
 
