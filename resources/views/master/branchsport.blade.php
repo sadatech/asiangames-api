@@ -38,7 +38,7 @@
                         	<div class="btn-group">
                              	<a class="btn green" href="{{ url('branchsport/create') }}"><i
 									class="fa fa-plus"></i> Add New </a>
-
+                                
                             </div>
                     	</div>
                     </div>
@@ -65,6 +65,8 @@
                 </div>
                 <!-- END IMAGE MODAL POPUP -->
 
+                @include('partial.modal.description-modal')
+
 				<!-- END MAIN CONTENT -->
 			</div>
 		</div>
@@ -78,6 +80,9 @@
 <!-- BEGIN IMAGE MODAL SCRIPTS -->
 <script src="{{ asset('js/image-modal/popup.js') }}" type="text/javascript"></script>
 <!-- END IMAGE MODAL SCRIPTS -->
+<!-- BEGIN TEXT MODAL SCRIPTS -->
+<script src="{{ asset('js/text-modal/popup.js') }}" type="text/javascript"></script>
+<!-- END TEXT MODAL SCRIPTS -->
 <!-- BEGIN RELATION SCRIPTS -->
 <script src="{{ asset('js/handler/relation-handler.js') }}" type="text/javascript"></script>
 <!-- END RELATION SCRIPTS -->
@@ -170,15 +175,7 @@
                 });
         });
 
-
-
-  //   	swal({
-		//   title: "Error!",
-		//   text: "Here's my error message!",
-		//   type: "error",
-		//   confirmButtonText: "Cool"
-		// });	
-
     });
+
 </script>
 @endsection

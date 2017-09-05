@@ -7,10 +7,13 @@ use App\Http\Controllers\Controller;
 use App\TypeSport;
 use Yajra\Datatables\Facades\Datatables;
 use App\Filters\KindSportFilters;
+use App\Traits\StringTrait;
 use DB;
 
 class TypeSportController extends Controller
 {
+    use StringTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -40,7 +43,9 @@ class TypeSportController extends Controller
 
         return Datatables::of($data)             
                 ->editColumn('description', function ($item) {
-                    return str_limit($item->description, 50);
+                    $description = $this->replaceSingleQuote($item->description);
+                    return
+                    "<a class='open-description-modal' data-target='#full-width' data-toggle='modal' data-title='".$item->name." description' data-description='".$description."' style='color: black;text-decoration: none;'> ".str_limit($item->description, 50)." </a>";
                 })
                 ->addColumn('action', function ($item) {
 
@@ -49,7 +54,7 @@ class TypeSportController extends Controller
                     <button class='btn btn-danger btn-sm btn-delete deleteButton' data-toggle='confirmation' data-singleton='true' value='".$item->id."'><i class='fa fa-trash-o'></i></button>";
                     
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['description', 'action'])
                 ->make(true);
 
     }
