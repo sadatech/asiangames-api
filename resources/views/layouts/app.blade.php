@@ -33,7 +33,11 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="{{ asset('assets/global/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('assets/global/plugins/uniform/css/uniform.default.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css') }}" rel="stylesheet" type="text/css" />
-        <!-- END GLOBAL MANDATORY STYLES -->       
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link href="{{ asset('assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css') }}" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL PLUGINS -->  
         <!-- BEGIN PAGE LEVEL PLUGINS -->        
         <link href="{{ asset('assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css"/>
@@ -189,6 +193,13 @@ License: You must have a valid license purchased only from themeforest(the above
         <script src="{{ asset('assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js') }}" type="text/javascript"></script>
         <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <script src="{{ asset('assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js') }}" type="text/javascript"></script>
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <script src="{{ asset('assets/pages/scripts/ui-extended-modals.min.js') }}" type="text/javascript"></script>
+        <!-- END PAGE LEVEL SCRIPTS -->
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
         <script src="{{ asset('assets/global/scripts/app.min.js') }}" type="text/javascript"></script>
         <!-- END THEME GLOBAL SCRIPTS -->
@@ -203,7 +214,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <script src="{{ asset('assets/swal/sweetalert.min.js') }}"></script>
         <script src="{{ asset('assets/global/plugins/select2/js/select2.full.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/pages/scripts/components-select2.min.js') }}" type="text/javascript"></script>
-        <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- END PAGE LEVEL SCRIPTS -->        
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
         <script src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}" type="text/javascript"></script>

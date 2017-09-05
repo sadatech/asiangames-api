@@ -9,12 +9,14 @@ use Yajra\Datatables\Facades\Datatables;
 use App\Filters\BranchSportFilters;
 use App\Filters\QueryFilters;
 use App\Traits\UploadTrait;
+use App\Traits\StringTrait;
 use Image;
 use DB;
 
 class BranchSportController extends Controller
 {
     use UploadTrait;
+    use StringTrait;
 
     /**
      * Display a listing of the resource.
@@ -63,7 +65,11 @@ class BranchSportController extends Controller
                     
                 })
                 ->editColumn('description', function ($item) {
-                    return str_limit($item->description, 50);
+                    // return str_limit($item->description, 50);
+                    // $description = str_replace("'", "&#39;", $item->description);
+                    $description = $this->replaceSingleQuote($item->description);
+                    return
+                    "<a class='open-description-modal' data-target='#full-width' data-toggle='modal' data-title='".$item->name." description' data-description='".$description."' style='color: black;text-decoration: none;'> ".str_limit($item->description, 50)." </a>";
                 })
                 ->editColumn('photo', function ($item) {
                     try{
@@ -87,7 +93,7 @@ class BranchSportController extends Controller
                     <button class='btn btn-danger btn-sm btn-delete deleteButton' data-toggle='confirmation' data-singleton='true' value='".$item->id."'><i class='fa fa-trash-o'></i></button>";
                     
                 })
-                ->rawColumns(['icon', 'photo', 'action'])
+                ->rawColumns(['icon', 'photo', 'description', 'action'])
                 ->make(true);
 
     }

@@ -56,6 +56,8 @@
                     </thead>
 				</table>
 
+                @include('partial.modal.description-modal')
+
 				<!-- END MAIN CONTENT -->
 			</div>
 		</div>
@@ -69,6 +71,9 @@
 <!-- BEGIN RELATION SCRIPTS -->
 <script src="{{ asset('js/handler/relation-handler.js') }}" type="text/javascript"></script>
 <!-- END RELATION SCRIPTS -->
+<!-- BEGIN TEXT MODAL SCRIPTS -->
+<script src="{{ asset('js/text-modal/popup.js') }}" type="text/javascript"></script>
+<!-- END TEXT MODAL SCRIPTS -->
 
 <script>
 	$(document).ready(function () {    	
@@ -155,5 +160,6 @@
 
 
     });
+
 </script>
 @endsection
