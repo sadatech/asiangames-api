@@ -80,7 +80,7 @@ class BranchSportController extends Controller
                     catch(\Exception $e){
                         $popupImage = asset('image/missing.png');
                         $errors = 1;
-                    }
+                    }                    
 
                     // Using escape string &#39; => '
                     return "<img onclick='popupImage(&#39;".$popupImage."&#39;, &#39;".$errors."&#39;)' class='myImg' width='50px;' height='50px;' src='".$item->photo."' onError='this.onerror=null;this.src=&#39;".asset('image/missing.png')."&#39;;'>";
