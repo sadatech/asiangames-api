@@ -66,6 +66,10 @@
 
 @section('additional-scripts')
 
+<!-- BEGIN RELATION SCRIPTS -->
+<script src="{{ asset('js/handler/relation-handler.js') }}" type="text/javascript"></script>
+<!-- END RELATION SCRIPTS -->
+
 <script>
 	$(document).ready(function () {    	
 
@@ -101,6 +105,12 @@
     	// Delete data with sweet alert
         $('#kindsportsTable').on('click', 'tr td button.deleteButton', function () {
             var id = $(this).val();
+
+            if(kindTypeRelation(id) > 0){
+                swal("Warning", "This data still related to others! Please check the relation first.", "warning");
+                return;
+            }
+
             	swal({
 					title: "Are you sure?",
                     text: "You will not be able to recover data!",

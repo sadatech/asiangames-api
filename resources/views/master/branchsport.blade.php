@@ -78,6 +78,9 @@
 <!-- BEGIN IMAGE MODAL SCRIPTS -->
 <script src="{{ asset('js/image-modal/popup.js') }}" type="text/javascript"></script>
 <!-- END IMAGE MODAL SCRIPTS -->
+<!-- BEGIN RELATION SCRIPTS -->
+<script src="{{ asset('js/handler/relation-handler.js') }}" type="text/javascript"></script>
+<!-- END RELATION SCRIPTS -->
 
 <script>
 	$(document).ready(function () {    	
@@ -116,6 +119,15 @@
     	// Delete data with sweet alert
         $('#sportsTable').on('click', 'tr td button.deleteButton', function () {
             var id = $(this).val();
+
+            // alert(branchKindRelation(id));            
+            // return;
+
+            if(branchKindRelation(id) > 0){
+                swal("Warning", "This data still related to others! Please check the relation first.", "warning");
+                return;
+            }
+
             	swal({
 					title: "Are you sure?",
                     text: "You will not be able to recover data!",

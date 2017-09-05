@@ -49,6 +49,10 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('datatable/kindsports', ['as'=> 'datatable.kindsports','uses'=>'Master\KindSportController@masterDataTable']);
 	Route::post('datatable/typesports', ['as'=> 'datatable.typesports','uses'=>'Master\TypeSportController@masterDataTable']);
 
+	/* Relation */
+	Route::post('relation/branchkind', ['as'=> 'relation.branchkind','uses'=>'RelationController@branchKindRelation']);
+	Route::post('relation/kindtype', ['as'=> 'relation.kindtype','uses'=>'RelationController@kindTypeRelation']);
+
 	/* Select2 */
 	Route::post('data/branchsports', ['as'=> 'data.branchsports','uses'=>'Master\BranchSportController@getDataWithFilters']);
 	Route::post('data/kindsports', ['as'=> 'data.kindsports','uses'=>'Master\KindSportController@getDataWithFilters']);
