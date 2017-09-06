@@ -15,10 +15,9 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => ['auth']], function () {
-	Route::get('/', 'DashboardController@index');
-	Route::get('ok', 'DashboardController@index');
+	Route::get('/', 'DashboardController@index');	
 
-	/* Model(s) */
+	/* Model(s) Master */
 
 	/** Branch Sports **/
 	Route::get('branchsport', 'Master\BranchSportController@index');
@@ -44,6 +43,8 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::patch('typesport/{id}', 'Master\TypeSportController@update');
 	Route::delete('typesport/{id}', 'Master\TypeSportController@destroy');
 
+	/* Utilities */
+
 	/* Datatables */
 	Route::post('datatable/branchsports', ['as'=> 'datatable.branchsports','uses'=>'Master\BranchSportController@masterDataTable']);
 	Route::post('datatable/kindsports', ['as'=> 'datatable.kindsports','uses'=>'Master\KindSportController@masterDataTable']);
@@ -53,9 +54,15 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('relation/branchkind', ['as'=> 'relation.branchkind','uses'=>'RelationController@branchKindRelation']);
 	Route::post('relation/kindtype', ['as'=> 'relation.kindtype','uses'=>'RelationController@kindTypeRelation']);
 
-	/* Select2 */
+	/* Data with filter (select2, list) */
 	Route::post('data/branchsports', ['as'=> 'data.branchsports','uses'=>'Master\BranchSportController@getDataWithFilters']);
 	Route::post('data/kindsports', ['as'=> 'data.kindsports','uses'=>'Master\KindSportController@getDataWithFilters']);
+	Route::post('data/typesports', ['as'=> 'data.typesports','uses'=>'Master\TypeSportController@getDataWithFilters']);
+
+	/* Page(s) & etc */
+
+	/* Summary */
+	Route::get('sport', 'PageController@sportSummary');
 });
 
 Auth::routes();

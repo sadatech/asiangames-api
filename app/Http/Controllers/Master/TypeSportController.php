@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\TypeSport;
 use Yajra\Datatables\Facades\Datatables;
-use App\Filters\KindSportFilters;
+use App\Filters\TypeSportFilters;
 use App\Traits\StringTrait;
 use DB;
 
@@ -33,9 +33,21 @@ class TypeSportController extends Controller
 
         $data = DB::table('type_sports')
                     ->join('kind_sports', 'type_sports.kindsport_id', '=', 'kind_sports.id')
+                    ->where('type_sports.deleted_at', null)
                     ->select('type_sports.*', 'kind_sports.name as kindsport_name')->get();
 
         return $this->makeTable($data);
+    }
+
+    // Data for DataTables with Filters
+    public function getDataWithFilters(TypeSportFilters $filters){        
+        
+        /* Note : kalo nanti butuh fungsi ->get() , tinggal ->get() di variable nya aja, 
+         * e.g : $data->get();
+         */
+        $data = TypeSport::filter($filters)->get();
+
+        return $data;
     }
 
     // Datatable template

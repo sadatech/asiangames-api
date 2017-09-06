@@ -21,10 +21,10 @@
                             </a>
                         </li>
                         <li class="nav-item start active open">
-                            <a href="#" class="nav-link nav-toggle">
+                            <a href="{{ url('sport') }}" class="nav-link nav-toggle">
                                 <i class="icon-notebook"></i>
                                 <span class="title">Sports Management</span>
-                                @if(Request::is('branchsport*') || Request::is('kindsport*') || Request::is('typesport*'))
+                                @if(Request::is('sport*') || Request::is('branchsport*') || Request::is('kindsport*') || Request::is('typesport*'))
                                     <span class="selected"></span>                 
                                 @endif
                                 <span class="arrow open"></span>
