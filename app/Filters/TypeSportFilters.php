@@ -2,25 +2,25 @@
 
 namespace App\Filters;
 
-use App\KindSport;
+use App\TypeSport;
 use Illuminate\Http\Request;
 
-class KindSportFilters extends QueryFilters
+class TypeSportFilters extends QueryFilters
 {
 
     /**
      * Ordering data by name (test case)
      */
     public function name($value) {
-        // return $this->builder->where('name', 'like', '%'.$value.'%');
+        
         return (!$this->requestAllData($value)) ? $this->builder->where('name', 'like', '%'.$value.'%') : null;
     } 
 
     /**
-     * Search by Branch Sport
+     * Search by Kind Sport
      */
-    public function whereBranchSport($id){
-    	
-        return $this->builder->where('branchsport_id', $id);
+    public function whereKindSport($id){
+
+        return $this->builder->where('kindsport_id', $id);
     }
 }

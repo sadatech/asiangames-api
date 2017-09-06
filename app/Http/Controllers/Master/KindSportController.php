@@ -13,7 +13,7 @@ use DB;
 class KindSportController extends Controller
 {
     use StringTrait;
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -33,6 +33,7 @@ class KindSportController extends Controller
 
         $data = DB::table('kind_sports')
                     ->join('branch_sports', 'kind_sports.branchsport_id', '=', 'branch_sports.id')
+                    ->where('kind_sports.deleted_at', null)
                     ->select('kind_sports.*', 'branch_sports.name as branchsport_name')->get();
 
         return $this->makeTable($data);

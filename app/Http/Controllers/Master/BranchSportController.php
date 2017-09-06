@@ -39,7 +39,7 @@ class BranchSportController extends Controller
      */
     public function masterDataTable(){
 
-        $data = DB::table('branch_sports');     
+        $data = BranchSport::all();
 
         return $this->makeTable($data);
     }
@@ -53,6 +53,17 @@ class BranchSportController extends Controller
         $data = BranchSport::filter($filters)->get();
 
         return $data;
+    }
+
+    // Data for DataTables with Filters
+    public function getDataWithFilters2(Request $request){        
+        
+        /* Note : kalo nanti butuh fungsi ->get() , tinggal ->get() di variable nya aja, 
+         * e.g : $data->get();
+         */
+        // $data = BranchSport::filter($filters)->get();
+
+        return $request->all();
     }
 
     // Datatable template
