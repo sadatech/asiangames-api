@@ -28,3 +28,19 @@ function kindTypeRelation(kindSportId) {
         }
     }).responseText);
 }
+
+
+// Checking if countries still has child data in athletes
+function countryAthleteRelation(countryId) {
+    return JSON.parse($.ajax({
+        type: 'POST',
+        url: 'relation/countryathlete',
+        dataType: 'json',
+        data: { countryId: countryId },
+        global: false,
+        async: false,
+        success: function (data) {
+            return data;
+        }
+    }).responseText);
+}

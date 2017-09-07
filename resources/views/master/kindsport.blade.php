@@ -151,9 +151,9 @@
                             }
                         });                        
 
-                        swal("Deleted!", "Account has been deleted.", "success");
+                        swal("Deleted!", "Data has been deleted.", "success");
                     } else {
-                        swal("Cancelled", "Account is safe ", "success");
+                        swal("Cancelled", "Data is safe ", "success");
                     }
                 });
         });

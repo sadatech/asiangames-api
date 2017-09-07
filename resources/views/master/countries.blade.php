@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('header')
-<h1 class="page-title"> Branch Sports
-	<small>Manage Branch Sports</small>
+<h1 class="page-title"> Countries
+	<small>Manage Countries</small>
 </h1>
 <div class="page-bar">
 	<ul class="page-breadcrumb">
@@ -12,7 +12,7 @@
 			<i class="fa fa-angle-right"></i>
 		</li>
 		<li>
-			<span>Branch Sports Management</span>
+			<span>Countries Management</span>
 		</li>
 	</ul>                        
 </div>
@@ -26,17 +26,18 @@
 	    <div class="portlet light bordered">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="icon-social-dribbble font-green"></i>
-					<span class="caption-subject font-green sbold uppercase">BRANCH SPORTS</span>
+					<i class="fa fa-globe font-green"></i>
+					<span class="caption-subject font-green sbold uppercase">COUNTRIES</span>
 				</div>
 	        </div>
 	        <div class="portlet-body" style="padding: 15px;">
-	        	<!-- MAIN CONTENT -->
+	        	<!-- MAIN CONTENT -->                
+
 	        	<div class="table-toolbar">
                 	<div class="row">
                     	<div class="col-md-6">
                         	<div class="btn-group">
-                             	<a class="btn green" href="{{ url('branchsport/create') }}"><i
+                             	<a class="btn green" href="{{ url('countries/create') }}"><i
 									class="fa fa-plus"></i> Add New </a>
                                 
                             </div>
@@ -44,15 +45,14 @@
                     </div>
                 </div>
 
-	        	<table class="table table-striped table-hover table-bordered" id="sportsTable" style="white-space: nowrap;">
+	        	<table class="table table-striped table-hover table-bordered" id="countriesTable" style="white-space: nowrap;">
                 	<thead>
                     	<tr>
                     		<th> No. </th>
-                            <th> Icon </th>
-                        	<th> Sport Name </th>
-							<th> Location </th>
+                            <th> Code </th>
+                        	<th> Country Name </th>							
                             <th> Description </th>
-                            <th> Photo </th>
+                            <th> Flag </th>
                             <th> Options </th>                             
                         </tr>
                     </thead>
@@ -65,7 +65,7 @@
                 </div>
                 <!-- END IMAGE MODAL POPUP -->
 
-                @include('partial.modal.description-modal')
+                @include('partial.modal.description-modal')                
 
 				<!-- END MAIN CONTENT -->
 			</div>
@@ -97,21 +97,20 @@
         });
 
         // Set data for Data Table '#sportsTable'
-        var table = $('#sportsTable').dataTable({
+        var table = $('#countriesTable').dataTable({
 	        "processing": true,
 	        "serverSide": true,	          
 	        "ajax": {
-                url: "{{ route('datatable.branchsports') }}",
+                url: "{{ route('datatable.countries') }}",
                 type: 'POST',
             },
 	        "rowId": "id",
 	        "columns": [
-	            {data: 'id', name: 'id'},
-                {data: 'icon', name: 'icon', searchable: false, sortable: false},
-	            {data: 'name', name: 'name'},
-	            {data: 'location', name: 'location'},
+	            {data: 'id', name: 'id'},    
+                {data: 'code', name: 'code'},            
+	            {data: 'name', name: 'name'},	            
 	            {data: 'description', name: 'description', sortable: false},
-                {data: 'photo', name: 'photo', searchable: false, sortable: false},
+                {data: 'flag', name: 'flag', searchable: false, sortable: false},
 	            {data: 'action', name: 'action', searchable: false, sortable: false},                
 	        ],
 	        "columnDefs": [
@@ -122,13 +121,13 @@
 
 
     	// Delete data with sweet alert
-        $('#sportsTable').on('click', 'tr td button.deleteButton', function () {
+        $('#countriesTable').on('click', 'tr td button.deleteButton', function () {
             var id = $(this).val();
 
             // alert(branchKindRelation(id));            
             // return;
 
-            if(branchKindRelation(id) > 0){
+            if(countryAthleteRelation(id) > 0){
                 swal("Warning", "This data still related to others! Please check the relation first.", "warning");
                 return;
             }
@@ -156,7 +155,7 @@
                         $.ajax({
 
                             type: "DELETE",
-                            url:  'branchsport/' + id,
+                            url:  'countries/' + id,
                             success: function (data) {
                                 console.log(data);
 

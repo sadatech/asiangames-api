@@ -5,9 +5,18 @@ namespace App\Http\Controllers\Master;
 use App\Athlete;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Yajra\Datatables\Facades\Datatables;
+use App\Filters\AthleteFilters;
+use App\Filters\QueryFilters;
+use App\Traits\UploadTrait;
+use App\Traits\StringTrait;
+use Image;
+use DB;
 
 class AthleteControllers extends Controller
 {
+    use UploadTrait;
+    use StringTrait;
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +24,70 @@ class AthleteControllers extends Controller
      */
     public function index()
     {
-        return response()->json(Athlete::get());
+        return view('master.athletes');
+    }
+
+     /**
+     * Data for DataTables
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function masterDataTable(){
+
+        $data = DB::table('athletes')
+                    ->join('countries', 'athletes.country_id', '=', 'countries.id')
+                    ->where('athletes.deleted_at', null)
+                    ->select('athletes.*', 'countries.name as country_name', 'countries.code as country_code')->get();
+
+        return $this->makeTable($data);
+    }
+
+    // Data for DataTables with Filters
+    public function getDataWithFilters(AthleteFilters $filters){        
+        
+        /* Note : kalo nanti butuh fungsi ->get() , tinggal ->get() di variable nya aja, 
+         * e.g : $data->get();
+         */
+        $data = Athlete::filter($filters)->get();
+
+        return $data;
+    }
+
+    // Datatable template
+    public function makeTable($data){
+
+        return Datatables::of($data)
+                ->editColumn('photo', function ($item) {    
+                                   
+                    try{
+                        Image::make($item->photo);
+                        $popupImage = $item->photo;
+                        $errors = 0;
+                    } 
+                    catch(\Exception $e){
+                        $popupImage = asset('image/missing.png');
+                        $errors = 1;
+                    }                    
+
+                    // Using escape string &#39; => '
+                    return "<img onclick='popupImage(&#39;".$popupImage."&#39;, &#39;".$errors."&#39;)' class='myImg' width='50px;' height='50px;' src='".$item->photo."' onError='this.onerror=null;this.src=&#39;".asset('image/missing.png')."&#39;;'>";
+                    
+                })
+                ->editColumn('country_name', function ($item) {
+
+                    return "(".$item->country_code.") ".$item->country_name;
+                    
+                })
+                ->addColumn('action', function ($item) {
+
+                    return 
+                    "<a href='".url('athletes/edit/'.$item->id)."' class='btn btn-sm btn-warning'><i class='fa fa-pencil'></i></a>
+                    <button class='btn btn-danger btn-sm btn-delete deleteButton' data-toggle='confirmation' data-singleton='true' value='".$item->id."'><i class='fa fa-trash-o'></i></button>";
+                    
+                })
+                ->rawColumns(['photo', 'action'])
+                ->make(true);
+
     }
 
     /**
@@ -25,7 +97,7 @@ class AthleteControllers extends Controller
      */
     public function create()
     {
-        //
+        return view('master.form.athlete-form');
     }
 
     /**
@@ -36,7 +108,21 @@ class AthleteControllers extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'firstname' => 'required',
+            'country_id' => 'required',
+            'photo_file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+
+        // Upload file process
+        ($request->photo_file != null) ? 
+            $photo_url = $this->imageUpload($request->photo_file, "athletes/".$this->getRandomPath()) : $photo_url = "";        
+
+        if($request->photo_file != null) $request['photo'] = $photo_url;
+
+        $athlete = Athlete::create($request->all());
+        
+        return response()->json(['responseText' => 'Success!', 'url' => url('/athletes')]);
     }
 
     /**
@@ -58,7 +144,9 @@ class AthleteControllers extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Athlete::where('id', $id)->first();
+
+        return view('master.form.athlete-form', compact('data'));
     }
 
     /**
@@ -70,7 +158,26 @@ class AthleteControllers extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'firstname' => 'required',
+            'country_id' => 'required',
+            'photo_file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+
+        // Upload file process
+        ($request->photo_file != null) ? 
+            $photo_url = $this->imageUpload($request->photo_file, "athletes/".$this->getRandomPath()) : $photo_url = "";        
+
+        if($request->photo_file != null) $request['photo'] = $photo_url;
+
+        $athlete = Athlete::find($id)->update($request->all());
+
+        return response()->json(
+            [
+                'responseText' => 'Success!', 
+                'url' => url('/athletes'),
+                'method' => $request->_method
+            ]);
     }
 
     /**
@@ -81,6 +188,8 @@ class AthleteControllers extends Controller
      */
     public function destroy($id)
     {
-        //
+        $athlete = Athlete::destroy($id);
+
+        return response()->json($id);
     }
 }

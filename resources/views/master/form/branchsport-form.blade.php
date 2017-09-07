@@ -100,13 +100,15 @@
 				          </div>
 				        </div>
 
+				        <!-- View for old image * ICON * -->
+				        @if (!empty($data))
+
 				        <div class="caption padding-caption">
                         	<span class="caption-subject font-dark bold uppercase">ICON</span>
                         	<hr>
                         </div>
 
-				        <!-- View for old image * ICON * -->
-				        @if (!empty($data))
+				        
 				        	<div class="form-group">
 				          		<label class="col-sm-2 control-label">Icon</label>
 				         		<div class="col-sm-9">				          	

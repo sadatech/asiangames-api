@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('header')
-<h1 class="page-title"> Type Sports
-	<small>Manage Type Sports</small>
+<h1 class="page-title"> Countries
+	<small>Manage Countries</small>
 </h1>
 <div class="page-bar">
 	<ul class="page-breadcrumb">
@@ -12,15 +12,15 @@
 			<i class="fa fa-angle-right"></i>
 		</li>
 		<li>			
-			<a href="{{ url('typesport') }}">Type Sports Management</a>
+			<a href="{{ url('countries') }}">Countries Management</a>
 			<i class="fa fa-angle-right"></i>
 		</li>
 		<li>
 			<span>
 				@if (empty($data))
-					Add New Type Sports
+					Add New Countries
 				@else
-					Update Type Sports
+					Update Countries
 				@endif
 			</span>
 		</li>
@@ -36,25 +36,25 @@
 	    <div class="portlet light bordered">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="fa fa-soccer-ball-o font-green"></i>
+					<i class="fa fa-globe font-green"></i>
 					<span class="caption-subject font-green sbold uppercase">
 						@if (empty($data))
-							ADD NEW TYPE SPORTS
+							ADD NEW COUNTRIES
 						@else
-							UPDATE TYPE SPORTS
+							UPDATE COUNTRIES
 						@endif
 					</span>
 				</div>
 
 				<div class="btn-group" style="float: right; padding-top: 2px; padding-right: 10px;">
-                	<a class="btn btn-md green" href="{{ url('typesport/') }}">
+                	<a class="btn btn-md green" href="{{ url('countries/') }}">
                 		<i class="fa fa-chevron-left"></i> Back
                 	</a>
 				</div>
 	        </div>
 	        <div class="portlet-body" style="padding: 15px;">
 	        	<!-- MAIN CONTENT -->
-	        	<form id="form_type_sports" class="form-horizontal" action="{{ url('typesport', @$data->id) }}" method="POST">	        	
+	        	<form id="form_country" class="form-horizontal" action="{{ url('countries', @$data->id) }}" method="POST" enctype="multipart/form-data">	        	
 			        {{ csrf_field() }}
 			        @if (!empty($data))
 			          {{ method_field('PATCH') }}
@@ -70,6 +70,16 @@
                         	<hr>
                         </div>
 
+                        <div class="form-group">
+				          <label class="col-sm-2 control-label">Code</label>
+				          <div class="col-sm-9">
+				          	<div class="input-icon right">
+				          		<i class="fa"></i>
+				            	<input type="text" name="code" class="form-control" value="{{ @$data->code }}" placeholder="Input Code" />
+				            </div>
+				          </div>
+				        </div>
+
 				        <div class="form-group">
 				          <label class="col-sm-2 control-label">Name</label>
 				          <div class="col-sm-9">
@@ -81,23 +91,6 @@
 				        </div>
 
 				        <div class="form-group">
-				          <label class="col-sm-2 control-label">Kind Sport</label>
-				          <div class="col-sm-9">
-
-				          <div class="input-group" style="width: 100%;">
-     
-                                <select class="select2select" name="kindsport_id" id="kindsport" required></select>
-                               	
-                                <span class="input-group-addon display-hide">
-                                	<i class="fa"></i>
-                                </span>
-
-              				</div>
-				            
-				          </div>
-				        </div>				        			        		    
-				        
-				        <div class="form-group">
 				          <label class="col-sm-2 control-label">Description</label>
 				          <div class="col-sm-9">
 				          	<div class="input-icon right">
@@ -106,13 +99,47 @@
 				          	</div>
 				          </div>
 				        </div>
+
+				        <!-- View for old image * FLAG * -->
+				        @if (!empty($data))
+
+				        <div class="caption padding-caption">
+                        	<span class="caption-subject font-dark bold uppercase">FLAG</span>
+                        	<hr>
+                        </div>
+
+				        
+				        	<div class="form-group">
+				          		<label class="col-sm-2 control-label">Flag</label>
+				         		<div class="col-sm-9">				          	
+					    			<img width="90px" height="90px" src="{{ @$data->flag }}" onError="this.onerror=null;this.src='{{ asset('image/missing.png') }}';">
+				         		</div>
+				        	</div>
+
+			          		<div class="form-group">
+				          		<label class="col-sm-2 control-label">Flag URL</label>
+				         		<div class="col-sm-9">				          	
+					    			<input type="text" class="form-control" value="{{ @$data->flag }}" disabled="disabled" />
+					    		</div>
+				        	</div>
+			        	@endif
+
+					    <div class="form-group">
+				          <label class="col-sm-2 control-label">{{ (!empty($data)) ? 'New ' : ' ' }}Flag</label>
+				          <div class="col-sm-9">
+				          	<div class="input-group" style="width: 100%;">
+					          	<input type="file" accept=".jpg,.jpeg,.png,.gif,.svg" class="form-control" id="flag_file" name="flag_file">
+					          	<p style="font-size: 10pt;" class="help-block"> (Type of file: jpg, jpeg, png, gif, svg - Max size : 2 MB) </p>
+					          	<div class="file_error_message" style="display: none;"></div>
+					      	</div>
+				          </div>
+				        </div>				     
 				        
 				        <div class="form-group" style="padding-top: 15pt;">
 				          <div class="col-sm-9 col-sm-offset-2">
 				            <button type="submit" class="btn btn-primary green">Save</button>
 				          </div>
 				        </div>
-
 			    	</div>
 			    </form>
 				<!-- END MAIN CONTENT -->
@@ -123,34 +150,17 @@
 </div>
 @endsection
 
-@section('additional-scripts')	
+@section('additional-scripts')
 	<!-- BEGIN PAGE VALIDATION SCRIPTS -->
-    <script src="{{ asset('js/handler/type-sports-handler.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/handler/countries-handler.js') }}" type="text/javascript"></script>
     <!-- END PAGE VALIDATION SCRIPTS -->
-    <!-- BEGIN SELECT2 SCRIPTS -->
-    <script src="{{ asset('js/handler/select2-handler.js') }}" type="text/javascript"></script>
-    <!-- END SELECT2 SCRIPTS -->
     <script>
 		$(document).ready(function () {
 			$.ajaxSetup({
 	        	headers: {
 	            	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	            }
-	        });
-
-	       $('#kindsport').select2(setOptions('{{ route("data.kindsports") }}', 'Kind Sport', function (params) {
-                        // console.log(params);
-                        return filterData('name', params.term);
-                    }, function (data, params) {
-                        return {
-                            results: $.map(data, function (obj) {                                
-                                return {id: obj.id, text: obj.name}
-                            })
-                        }
-                    }));
-
-	       // Set select2 => 'branchsport' if method PATCH	       
-	       setIfPatch($("#kindsport"), "{{ @$data->kindsport_id }}", "{{ @$data->kindSport->name }}");	     	      
+	        });	        
 
 		});
 	</script>

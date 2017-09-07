@@ -43,21 +43,41 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::patch('typesport/{id}', 'Master\TypeSportController@update');
 	Route::delete('typesport/{id}', 'Master\TypeSportController@destroy');
 
+	/** Countries **/
+	Route::get('countries', 'Master\CountriesController@index');
+	Route::get('countries/create', 'Master\CountriesController@create');
+	Route::post('countries', 'Master\CountriesController@store');
+	Route::get('countries/edit/{id}', 'Master\CountriesController@edit');
+	Route::patch('countries/{id}', 'Master\CountriesController@update');
+	Route::delete('countries/{id}', 'Master\CountriesController@destroy');
+
+	/** Athletes **/
+	Route::get('athletes', 'Master\AthleteControllers@index');
+	Route::get('athletes/create', 'Master\AthleteControllers@create');
+	Route::post('athletes', 'Master\AthleteControllers@store');
+	Route::get('athletes/edit/{id}', 'Master\AthleteControllers@edit');
+	Route::patch('athletes/{id}', 'Master\AthleteControllers@update');
+	Route::delete('athletes/{id}', 'Master\AthleteControllers@destroy');
+
 	/* Utilities */
 
 	/* Datatables */
 	Route::post('datatable/branchsports', ['as'=> 'datatable.branchsports','uses'=>'Master\BranchSportController@masterDataTable']);
 	Route::post('datatable/kindsports', ['as'=> 'datatable.kindsports','uses'=>'Master\KindSportController@masterDataTable']);
 	Route::post('datatable/typesports', ['as'=> 'datatable.typesports','uses'=>'Master\TypeSportController@masterDataTable']);
+	Route::post('datatable/countries', ['as'=> 'datatable.countries','uses'=>'Master\CountriesController@masterDataTable']);
+	Route::post('datatable/athletes', ['as'=> 'datatable.athletes','uses'=>'Master\AthleteControllers@masterDataTable']);
 
 	/* Relation */
 	Route::post('relation/branchkind', ['as'=> 'relation.branchkind','uses'=>'RelationController@branchKindRelation']);
 	Route::post('relation/kindtype', ['as'=> 'relation.kindtype','uses'=>'RelationController@kindTypeRelation']);
+	Route::post('relation/countryathlete', ['as'=> 'relation.countryathlete','uses'=>'RelationController@countryAthleteRelation']);
 
 	/* Data with filter (select2, list) */
 	Route::post('data/branchsports', ['as'=> 'data.branchsports','uses'=>'Master\BranchSportController@getDataWithFilters']);
 	Route::post('data/kindsports', ['as'=> 'data.kindsports','uses'=>'Master\KindSportController@getDataWithFilters']);
 	Route::post('data/typesports', ['as'=> 'data.typesports','uses'=>'Master\TypeSportController@getDataWithFilters']);
+	Route::post('data/countries', ['as'=> 'data.countries','uses'=>'Master\CountriesController@getDataWithFilters']);
 
 	/* Page(s) & etc */
 
