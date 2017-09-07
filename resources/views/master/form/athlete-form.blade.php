@@ -75,7 +75,7 @@
 				          <div class="col-sm-9">
 				          	<div class="input-icon right">
 				          		<i class="fa"></i>
-				            	<input type="text" name="firstname" class="form-control" value="{{ @$data->firstname }}" placeholder="Input Name" />
+				            	<input type="text" name="firstname" class="form-control" value="{{ @$data->firstname }}" placeholder="Input Firstname" />
 				            </div>
 				          </div>
 				        </div>
@@ -85,7 +85,7 @@
 				          <div class="col-sm-9">
 				          	<div class="input-icon right">
 				          		<i class="fa"></i>
-				            	<input type="text" name="lastname" class="form-control" value="{{ @$data->lastname }}" placeholder="Input Name" />
+				            	<input type="text" name="lastname" class="form-control" value="{{ @$data->lastname }}" placeholder="Input Lastname" />
 				            </div>
 				          </div>
 				        </div>

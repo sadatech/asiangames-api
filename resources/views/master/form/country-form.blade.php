@@ -95,7 +95,7 @@
 				          <div class="col-sm-9">
 				          	<div class="input-icon right">
 				          		<i class="fa"></i>
-				          		<textarea name="description" class="form-control" rows="5" placeholder="Description about this branch sports..">{{ @$data->description }}</textarea>
+				          		<textarea name="description" class="form-control" rows="5" placeholder="Description about this country..">{{ @$data->description }}</textarea>
 				          	</div>
 				          </div>
 				        </div>
