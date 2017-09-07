@@ -23,7 +23,7 @@
                         <li class="nav-item start active open">
                             <a href="{{ url('sport') }}" class="nav-link nav-toggle">
                                 <i class="icon-notebook"></i>
-                                <span class="title">Sports Management</span>
+                                <span class="title">Sports</span>
                                 @if(Request::is('sport*') || Request::is('branchsport*') || Request::is('kindsport*') || Request::is('typesport*'))
                                     <span class="selected"></span>                 
                                 @endif
@@ -53,7 +53,7 @@
                         <li class="nav-item start active open">
                             <a href="{{ url('countries') }}" class="nav-link nav-toggle">
                                 <i class="fa fa-globe"></i>
-                                <span class="title">Countries Management</span>
+                                <span class="title">Countries</span>
                                 @if(Request::is('countries*'))
                                     <span class="selected"></span>                 
                                 @endif                                
@@ -62,8 +62,17 @@
                         <li class="nav-item start active open">
                             <a href="{{ url('athletes') }}" class="nav-link nav-toggle">
                                 <i class="fa fa-group"></i>
-                                <span class="title">Athletes Management</span>
+                                <span class="title">Athletes</span>
                                 @if(Request::is('athletes*'))
+                                    <span class="selected"></span>                 
+                                @endif                                
+                            </a>                            
+                        </li>
+                        <li class="nav-item start active open">
+                            <a href="{{ url('schedules') }}" class="nav-link nav-toggle">
+                                <i class="fa fa-calendar-minus-o"></i>
+                                <span class="title">Schedules</span>
+                                @if(Request::is('schedules*'))
                                     <span class="selected"></span>                 
                                 @endif                                
                             </a>                            

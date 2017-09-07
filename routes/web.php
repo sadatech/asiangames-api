@@ -59,6 +59,14 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::patch('athletes/{id}', 'Master\AthleteControllers@update');
 	Route::delete('athletes/{id}', 'Master\AthleteControllers@destroy');
 
+	/** Schedules **/
+	Route::get('schedules', 'Master\ScheduleController@index');
+	Route::get('schedules/create', 'Master\ScheduleController@create');
+	Route::post('schedules', 'Master\ScheduleController@store');
+	Route::get('schedules/edit/{id}', 'Master\ScheduleController@edit');
+	Route::patch('schedules/{id}', 'Master\ScheduleController@update');
+	Route::delete('schedules/{id}', 'Master\ScheduleController@destroy');
+
 	/* Utilities */
 
 	/* Datatables */
@@ -67,6 +75,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('datatable/typesports', ['as'=> 'datatable.typesports','uses'=>'Master\TypeSportController@masterDataTable']);
 	Route::post('datatable/countries', ['as'=> 'datatable.countries','uses'=>'Master\CountriesController@masterDataTable']);
 	Route::post('datatable/athletes', ['as'=> 'datatable.athletes','uses'=>'Master\AthleteControllers@masterDataTable']);
+	Route::post('datatable/schedules', ['as'=> 'datatable.schedules','uses'=>'Master\ScheduleController@masterDataTable']);
 
 	/* Relation */
 	Route::post('relation/branchkind', ['as'=> 'relation.branchkind','uses'=>'RelationController@branchKindRelation']);
