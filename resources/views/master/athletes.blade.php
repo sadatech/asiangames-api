@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('header')
-<h1 class="page-title"> Branch Sports
-	<small>Manage Branch Sports</small>
+<h1 class="page-title"> Athletes
+	<small>Manage Athletes</small>
 </h1>
 <div class="page-bar">
 	<ul class="page-breadcrumb">
@@ -12,7 +12,7 @@
 			<i class="fa fa-angle-right"></i>
 		</li>
 		<li>
-			<span>Branch Sports Management</span>
+			<span>Athletes Management</span>
 		</li>
 	</ul>                        
 </div>
@@ -26,17 +26,17 @@
 	    <div class="portlet light bordered">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="icon-social-dribbble font-green"></i>
-					<span class="caption-subject font-green sbold uppercase">BRANCH SPORTS</span>
+					<i class="fa fa-group font-green"></i>
+					<span class="caption-subject font-green sbold uppercase">ATHLETES</span>
 				</div>
 	        </div>
 	        <div class="portlet-body" style="padding: 15px;">
-	        	<!-- MAIN CONTENT -->
+	        	<!-- MAIN CONTENT -->            
 	        	<div class="table-toolbar">
                 	<div class="row">
                     	<div class="col-md-6">
                         	<div class="btn-group">
-                             	<a class="btn green" href="{{ url('branchsport/create') }}"><i
+                             	<a class="btn green" href="{{ url('athletes/create') }}"><i
 									class="fa fa-plus"></i> Add New </a>
                                 
                             </div>
@@ -44,14 +44,13 @@
                     </div>
                 </div>
 
-	        	<table class="table table-striped table-hover table-bordered" id="sportsTable" style="white-space: nowrap;">
+	        	<table class="table table-striped table-hover table-bordered" id="athletesTable" style="white-space: nowrap;">
                 	<thead>
                     	<tr>
                     		<th> No. </th>
-                            <th> Icon </th>
-                        	<th> Sport Name </th>
-							<th> Location </th>
-                            <th> Description </th>
+                            <th> Firstname </th>
+                        	<th> Lastname </th>
+							<th> Country </th>
                             <th> Photo </th>
                             <th> Options </th>                             
                         </tr>
@@ -83,9 +82,6 @@
 <!-- BEGIN TEXT MODAL SCRIPTS -->
 <script src="{{ asset('js/text-modal/popup.js') }}" type="text/javascript"></script>
 <!-- END TEXT MODAL SCRIPTS -->
-<!-- BEGIN RELATION SCRIPTS -->
-<script src="{{ asset('js/handler/relation-handler.js') }}" type="text/javascript"></script>
-<!-- END RELATION SCRIPTS -->
 
 <script>
 	$(document).ready(function () {    	
@@ -96,21 +92,20 @@
             }
         });
 
-        // Set data for Data Table '#sportsTable'
-        var table = $('#sportsTable').dataTable({
+        // Set data for Data Table '#athletesTable'
+        var table = $('#athletesTable').dataTable({
 	        "processing": true,
 	        "serverSide": true,	          
 	        "ajax": {
-                url: "{{ route('datatable.branchsports') }}",
+                url: "{{ route('datatable.athletes') }}",
                 type: 'POST',
             },
 	        "rowId": "id",
 	        "columns": [
-	            {data: 'id', name: 'id'},
-                {data: 'icon', name: 'icon', searchable: false, sortable: false},
-	            {data: 'name', name: 'name'},
-	            {data: 'location', name: 'location'},
-	            {data: 'description', name: 'description', sortable: false},
+	            {data: 'id', name: 'id'},                
+	            {data: 'firstname', name: 'firstname'},
+                {data: 'lastname', name: 'lastname'},
+                {data: 'country_name', name: 'country_name'},
                 {data: 'photo', name: 'photo', searchable: false, sortable: false},
 	            {data: 'action', name: 'action', searchable: false, sortable: false},                
 	        ],
@@ -122,16 +117,8 @@
 
 
     	// Delete data with sweet alert
-        $('#sportsTable').on('click', 'tr td button.deleteButton', function () {
+        $('#athletesTable').on('click', 'tr td button.deleteButton', function () {
             var id = $(this).val();
-
-            // alert(branchKindRelation(id));            
-            // return;
-
-            if(branchKindRelation(id) > 0){
-                swal("Warning", "This data still related to others! Please check the relation first.", "warning");
-                return;
-            }
 
             	swal({
 					title: "Are you sure?",
@@ -156,7 +143,7 @@
                         $.ajax({
 
                             type: "DELETE",
-                            url:  'branchsport/' + id,
+                            url:  'athletes/' + id,
                             success: function (data) {
                                 console.log(data);
 

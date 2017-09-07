@@ -44,12 +44,30 @@
                                 </li>
                                 <li class="nav-item start {{ Request::is('typesport*') ? 'open' : '' }}">
                                     <a href="{{ url('typesport') }}" class="nav-link ">
-                                        <i class="icon-screen-tablet"></i>
+                                        <i class="fa fa-soccer-ball-o"></i>
                                         <span class="title">Type of Sports</span>                                        
                                     </a>
                                 </li>
                             </ul>
-                        </li>                        
+                        </li>
+                        <li class="nav-item start active open">
+                            <a href="{{ url('countries') }}" class="nav-link nav-toggle">
+                                <i class="fa fa-globe"></i>
+                                <span class="title">Countries Management</span>
+                                @if(Request::is('countries*'))
+                                    <span class="selected"></span>                 
+                                @endif                                
+                            </a>                            
+                        </li>
+                        <li class="nav-item start active open">
+                            <a href="{{ url('athletes') }}" class="nav-link nav-toggle">
+                                <i class="fa fa-group"></i>
+                                <span class="title">Athletes Management</span>
+                                @if(Request::is('athletes*'))
+                                    <span class="selected"></span>                 
+                                @endif                                
+                            </a>                            
+                        </li>               
                     </ul>
                     <!-- END SIDEBAR MENU -->
                 </div>

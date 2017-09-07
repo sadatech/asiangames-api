@@ -28,7 +28,7 @@
 	        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
 	            <h4 class="widget-thumb-heading">Branch Sport(s)</h4>
 	            <div class="widget-thumb-wrap">
-	                <i class="widget-thumb-icon bg-green icon-bulb"></i>
+	                <i class="widget-thumb-icon bg-green icon-social-dribbble"></i>
 	                <div class="widget-thumb-body">
 	                    <span class="widget-thumb-subtitle">Total</span>
 	                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{ (@$countBranchSports) ? $countBranchSports : 0 }}">0</span>
@@ -42,7 +42,7 @@
 	        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
 	            <h4 class="widget-thumb-heading">Kind of Sport(s)</h4>
 	            <div class="widget-thumb-wrap">
-	                <i class="widget-thumb-icon bg-red icon-layers"></i>
+	                <i class="widget-thumb-icon bg-red icon-support"></i>
 	                <div class="widget-thumb-body">
 	                    <span class="widget-thumb-subtitle">Total</span>
 	                    <span id="countKind" class="widget-thumb-body-stat" data-counter="counterup" data-value="{{ (@$countKindSports) ? $countKindSports : 0 }}">0</span>
@@ -56,7 +56,7 @@
 	        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
 	            <h4 class="widget-thumb-heading">Type of Sport(s)</h4>
 	            <div class="widget-thumb-wrap">
-	                <i class="widget-thumb-icon bg-purple icon-screen-desktop"></i>
+	                <i class="widget-thumb-icon bg-purple fa fa-soccer-ball-o"></i>
 	                <div class="widget-thumb-body">
 	                    <span class="widget-thumb-subtitle">Total</span>
 	                    <span id="countType" class="widget-thumb-body-stat" data-counter="counterup" data-value="{{ (@$countTypeSports) ? $countTypeSports : 0 }}">0</span>
@@ -88,14 +88,22 @@
 		        	<div class="col-md-4">
 		        		<div class="mt-element-list">
                             <div class="mt-list-head list-simple ext-1 font-white bg-green-sharp">
-                                <div class="list-head-title-container">                                    
-                                    <h4 class="list-title">Branch Sports</h4>
+                                <div class="list-head-title-container">                                
+                                    <h4 class="list-title">
+                                    	<i class="icon-social-dribbble"></i>
+                                    	&nbsp;Branch Sports
+                                    </h4>
                                 </div>
                             </div>
                             <div class="mt-list-container list-simple ext-1">
-                                <ul id="branchSportList" style="height: 300px;overflow-x:hidden; overflow-y:scroll;">
+                                <ul id="branchSportList" style="height: 330px;overflow-x:hidden; overflow-y:scroll;">
                                                            
                                 </ul>
+                            </div>
+                            <div class="mt-list-head list-simple ext-1 font-white bg-green-sharp">
+                                <div class="list-head-title-container">                                    
+
+                                </div>
                             </div>
                         </div>
 		        	</div>
@@ -105,13 +113,21 @@
 		        		<div class="mt-element-list">
                             <div class="mt-list-head list-simple ext-1 font-white bg-red">
                                 <div class="list-head-title-container">                                    
-                                    <h4 class="list-title">Kind of Sports</h4>
+                                    <h4 class="list-title">
+                                    	<i class="icon-support"></i>
+                                    	&nbsp;Branch Sports
+                                    </h4>
                                 </div>
                             </div>
                             <div class="mt-list-container list-simple ext-1">
                                 <ul id="kindSportList">
                                                            
                                 </ul>
+                            </div>
+                            <div class="mt-list-head list-simple ext-1 font-white bg-red">
+                                <div class="list-head-title-container">                                    
+
+                                </div>
                             </div>
                         </div>
 		        	</div>
@@ -121,13 +137,20 @@
 		        		<div class="mt-element-list">
                             <div class="mt-list-head list-simple ext-1 font-white bg-purple">
                                 <div class="list-head-title-container">                                    
-                                    <h4 class="list-title">Type of Sports</h4>
+                                    <h4 class="list-title">
+                                    	<i class="fa fa-soccer-ball-o"></i>
+                                    	&nbsp;Branch Sports
+                                    </h4>
                                 </div>
                             </div>
                             <div class="mt-list-container list-simple ext-1">
                                 <ul id="typeSportList">
                                                            
                                 </ul>
+                            </div>
+                             <div class="mt-list-head list-simple ext-1 font-white bg-purple">
+                                <div class="list-head-title-container">                                    
+                                </div>
                             </div>
                         </div>
 		        	</div>

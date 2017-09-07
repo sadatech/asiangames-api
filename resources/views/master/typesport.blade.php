@@ -26,7 +26,7 @@
 	    <div class="portlet light bordered">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="icon-screen-tablet font-green"></i>
+					<i class="fa fa-soccer-ball-o font-green"></i>
 					<span class="caption-subject font-green sbold uppercase">TYPE SPORTS</span>
 				</div>
 	        </div>
@@ -142,9 +142,9 @@
                             }
                         });                        
 
-                        swal("Deleted!", "Account has been deleted.", "success");
+                        swal("Deleted!", "Data has been deleted.", "success");
                     } else {
-                        swal("Cancelled", "Account is safe ", "success");
+                        swal("Cancelled", "Data is safe ", "success");
                     }
                 });
         });

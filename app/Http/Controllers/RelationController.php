@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\BranchSport;
 use App\KindSport;
 use App\TypeSport;
+use App\Athlete;
 
 class RelationController extends Controller
 {
@@ -20,6 +21,12 @@ class RelationController extends Controller
     	$countTypeSport = TypeSport::where('kindsport_id', $request->kindSportId)->count();
 
         return $countTypeSport;
+    }
+
+    public function countryAthleteRelation(Request $request){
+    	$countAthletes = Athlete::where('country_id', $request->countryId)->count();
+
+        return $countAthletes;
     }
 
 }

@@ -55,17 +55,6 @@ class BranchSportController extends Controller
         return $data;
     }
 
-    // Data for DataTables with Filters
-    public function getDataWithFilters2(Request $request){        
-        
-        /* Note : kalo nanti butuh fungsi ->get() , tinggal ->get() di variable nya aja, 
-         * e.g : $data->get();
-         */
-        // $data = BranchSport::filter($filters)->get();
-
-        return $request->all();
-    }
-
     // Datatable template
     public function makeTable($data){
 
@@ -154,7 +143,7 @@ class BranchSportController extends Controller
         ($request->photo_file != null) ? 
             $photo_url = $this->imageUpload($request->photo_file, "branchsports/photo") : $photo_url = "";        
         if($request->icon_file != null) $request['icon'] = $icon_url;
-        if($request->photo_file != null) $request['photo'] = $photo_url;    
+        if($request->photo_file != null) $request['photo'] = $photo_url;
 
         $branchSport = BranchSport::create($request->all());
         
