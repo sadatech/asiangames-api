@@ -6,7 +6,7 @@ var modalImg = document.getElementById("image-popup");
 
 function popupImage(param, errors){
 
-    alert(errors);
+    // alert(errors);
 	
 	if(errors == 0){
 
