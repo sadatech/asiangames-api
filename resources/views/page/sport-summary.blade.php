@@ -20,54 +20,53 @@
 
 @section('content')
 
-<div class="row">
-	<!-- BEGIN WIDGET DIV -->
-	<div class="row widget-row">
-	    <div class="col-md-4">
-	        <!-- BEGIN WIDGET THUMB -->
-	        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
-	            <h4 class="widget-thumb-heading">Branch Sport(s)</h4>
-	            <div class="widget-thumb-wrap">
-	                <i class="widget-thumb-icon bg-green icon-social-dribbble"></i>
-	                <div class="widget-thumb-body">
-	                    <span class="widget-thumb-subtitle">Total</span>
-	                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{ (@$countBranchSports) ? $countBranchSports : 0 }}">0</span>
-	                </div>
-	            </div>
-	        </div>
-	        <!-- END WIDGET THUMB -->
-	    </div>
-	    <div class="col-md-4">
-	        <!-- BEGIN WIDGET THUMB -->
-	        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
-	            <h4 class="widget-thumb-heading">Kind of Sport(s)</h4>
-	            <div class="widget-thumb-wrap">
-	                <i class="widget-thumb-icon bg-red icon-support"></i>
-	                <div class="widget-thumb-body">
-	                    <span class="widget-thumb-subtitle">Total</span>
-	                    <span id="countKind" class="widget-thumb-body-stat" data-counter="counterup" data-value="{{ (@$countKindSports) ? $countKindSports : 0 }}">0</span>
-	                </div>
-	            </div>
-	        </div>
-	        <!-- END WIDGET THUMB -->
-	    </div>
-	    <div class="col-md-4">
-	        <!-- BEGIN WIDGET THUMB -->
-	        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
-	            <h4 class="widget-thumb-heading">Type of Sport(s)</h4>
-	            <div class="widget-thumb-wrap">
-	                <i class="widget-thumb-icon bg-purple fa fa-soccer-ball-o"></i>
-	                <div class="widget-thumb-body">
-	                    <span class="widget-thumb-subtitle">Total</span>
-	                    <span id="countType" class="widget-thumb-body-stat" data-counter="counterup" data-value="{{ (@$countTypeSports) ? $countTypeSports : 0 }}">0</span>
-	                </div>
-	            </div>
-	        </div>
-	        <!-- END WIDGET THUMB -->
-	    </div>
-	</div>
-	<!-- END WIDGET DIV -->
+<!-- BEGIN WIDGET DIV -->
+<div class="row widget-row">
+    <div class="col-md-4">
+        <!-- BEGIN WIDGET THUMB -->
+        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
+            <h4 class="widget-thumb-heading">Branch Sport(s)</h4>
+            <div class="widget-thumb-wrap">
+                <i class="widget-thumb-icon bg-green icon-social-dribbble"></i>
+                <div class="widget-thumb-body">
+                    <span class="widget-thumb-subtitle">Total</span>
+                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="{{ (@$countBranchSports) ? $countBranchSports : 0 }}">0</span>
+                </div>
+            </div>
+        </div>
+        <!-- END WIDGET THUMB -->
+    </div>
+    <div class="col-md-4">
+        <!-- BEGIN WIDGET THUMB -->
+        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
+            <h4 class="widget-thumb-heading">Kind of Sport(s)</h4>
+            <div class="widget-thumb-wrap">
+                <i class="widget-thumb-icon bg-red icon-support"></i>
+                <div class="widget-thumb-body">
+                    <span class="widget-thumb-subtitle">Total</span>
+                    <span id="countKind" class="widget-thumb-body-stat" data-counter="counterup" data-value="{{ (@$countKindSports) ? $countKindSports : 0 }}">0</span>
+                </div>
+            </div>
+        </div>
+        <!-- END WIDGET THUMB -->
+    </div>
+    <div class="col-md-4">
+        <!-- BEGIN WIDGET THUMB -->
+        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
+            <h4 class="widget-thumb-heading">Type of Sport(s)</h4>
+            <div class="widget-thumb-wrap">
+                <i class="widget-thumb-icon bg-purple fa fa-soccer-ball-o"></i>
+                <div class="widget-thumb-body">
+                    <span class="widget-thumb-subtitle">Total</span>
+                    <span id="countType" class="widget-thumb-body-stat" data-counter="counterup" data-value="{{ (@$countTypeSports) ? $countTypeSports : 0 }}">0</span>
+                </div>
+            </div>
+        </div>
+        <!-- END WIDGET THUMB -->
+    </div>
 </div>
+<!-- END WIDGET DIV -->
+
 
 <div class="row">
 	<div class="col-lg-12 col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -253,11 +252,12 @@
 
 	/** Kind Sport List **/
 	function kindSportList(id){
+		$("#kindSportColumn").attr("style", "display: none;");
 		$("#kindSportList").empty();
 		// Type sport empty
-		$("#typeSportList").empty();
 		$("#typeSportColumn").attr("style", "display: none;");
-
+		$("#typeSportList").empty();
+		
 		$.ajax({
 	        url: "{{ route('data.kindsports') }}",
 	        type: 'POST',
@@ -321,6 +321,7 @@
 
 	/** Type Sport List **/
 	function typeSportList(id){
+		$("#typeSportColumn").attr("style", "display: none;");
 		$("#typeSportList").empty();
 
 		$.ajax({

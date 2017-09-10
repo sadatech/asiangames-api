@@ -124,12 +124,13 @@
 @endsection
 
 @section('additional-scripts')	
+	<!-- BEGIN SELECT2 SCRIPTS -->
+    <script src="{{ asset('js/handler/select2-handler.js') }}" type="text/javascript"></script>
+    <!-- END SELECT2 SCRIPTS -->
 	<!-- BEGIN PAGE VALIDATION SCRIPTS -->
     <script src="{{ asset('js/handler/kind-sports-handler.js') }}" type="text/javascript"></script>
     <!-- END PAGE VALIDATION SCRIPTS -->
-    <!-- BEGIN SELECT2 SCRIPTS -->
-    <script src="{{ asset('js/handler/select2-handler.js') }}" type="text/javascript"></script>
-    <!-- END SELECT2 SCRIPTS -->
+    
     <script>
 		$(document).ready(function () {
 			$.ajaxSetup({
@@ -150,7 +151,7 @@
                     }));
 
 	       // Set select2 => 'branchsport' if method PATCH	       
-	       setIfPatch($("#branchsport"), "{{ @$data->branchsport_id }}", "{{ @$data->branchSport->name }}");	     	      
+	       setSelect2IfPatch($("#branchsport"), "{{ @$data->branchsport_id }}", "{{ @$data->branchSport->name }}");	     	      
 
 		});
 	</script>

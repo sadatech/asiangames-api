@@ -44,3 +44,18 @@ function countryAthleteRelation(countryId) {
         }
     }).responseText);
 }
+
+// Checking if type sport still has child data in match entry
+function typeMatchRelation(typeSportId) {
+    return JSON.parse($.ajax({
+        type: 'POST',
+        url: 'relation/typematch',
+        dataType: 'json',
+        data: { typeSportId: typeSportId },
+        global: false,
+        async: false,
+        success: function (data) {
+            return data;
+        }
+    }).responseText);
+}

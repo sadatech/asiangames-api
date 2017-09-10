@@ -114,7 +114,9 @@
 	            {data: 'action', name: 'action', searchable: false, sortable: false},                
 	        ],
 	        "columnDefs": [
-        		{"className": "dt-center", "targets": [0]}
+        		{"className": "dt-center", "targets": [0]},
+                {"className": "dt-center", "targets": [4]},
+                {"className": "dt-center", "targets": [5]},
       		],
             "order": [ [0, 'desc'] ],
     	});

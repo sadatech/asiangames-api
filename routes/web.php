@@ -67,6 +67,14 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::patch('schedules/{id}', 'Master\ScheduleController@update');
 	Route::delete('schedules/{id}', 'Master\ScheduleController@destroy');
 
+	/** Match Entries **/
+	Route::get('matchentries', 'Master\MatchEntryController@index');
+	Route::get('matchentries/create', 'Master\MatchEntryController@create');
+	Route::post('matchentries', 'Master\MatchEntryController@store');
+	Route::get('matchentries/edit/{id}', 'Master\MatchEntryController@edit');
+	Route::patch('matchentries/{id}', 'Master\MatchEntryController@update');
+	Route::delete('matchentries/{id}', 'Master\MatchEntryController@destroy');
+
 	/* Utilities */
 
 	/* Datatables */
@@ -76,11 +84,13 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('datatable/countries', ['as'=> 'datatable.countries','uses'=>'Master\CountriesController@masterDataTable']);
 	Route::post('datatable/athletes', ['as'=> 'datatable.athletes','uses'=>'Master\AthleteControllers@masterDataTable']);
 	Route::post('datatable/schedules', ['as'=> 'datatable.schedules','uses'=>'Master\ScheduleController@masterDataTable']);
+	Route::post('datatable/matchentries', ['as'=> 'datatable.matchentries','uses'=>'Master\MatchEntryController@masterDataTable']);
 
 	/* Relation */
 	Route::post('relation/branchkind', ['as'=> 'relation.branchkind','uses'=>'RelationController@branchKindRelation']);
 	Route::post('relation/kindtype', ['as'=> 'relation.kindtype','uses'=>'RelationController@kindTypeRelation']);
 	Route::post('relation/countryathlete', ['as'=> 'relation.countryathlete','uses'=>'RelationController@countryAthleteRelation']);
+	Route::post('relation/typematch', ['as'=> 'relation.typematch','uses'=>'RelationController@typeMatchRelation']);
 
 	/* Data with filter (select2, list) */
 	Route::post('data/branchsports', ['as'=> 'data.branchsports','uses'=>'Master\BranchSportController@getDataWithFilters']);

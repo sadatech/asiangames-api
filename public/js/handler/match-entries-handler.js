@@ -5,10 +5,10 @@
 
 var FormValidation = function () {
 
-    // Athlete Master Validation
-    var athletesValidation = function() {
+    // Match Entries Master Validation
+    var matchEntriesValidation = function() {
 
-            var form = $('#form_athlete');
+            var form = $('#form_match_entries');
             var errorAlert = $('.alert-danger', form);
             var successAlert = $('.alert-success', form);
 
@@ -18,18 +18,18 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    firstname: {
+                    code: {
                         minlength: 2,
                         required: true,
                     },
-                    country:{
+                    typesport:{
                         required: true,
                     },
 
                 },
                 messages:{
-                    country:{
-                        required: "Please select a Country!"
+                    typesport:{
+                        required: "Please select a Type Sport!"
                     }
                 },
 
@@ -139,7 +139,7 @@ var FormValidation = function () {
 
                             var spanIcon = $(span).children('i');
                             spanIcon.removeClass('fa-warning').addClass("fa-check");
-                            spanIcon.removeClass('font-red').addClass("font-green");                            
+                            spanIcon.removeClass('font-red').addClass("font-green");                          
                         }
                     }
 
@@ -176,7 +176,7 @@ var FormValidation = function () {
                         dataType: 'json',                        
                         processData: false,
                         contentType: false,
-                        success: function (data) {
+                        success: function (data) {                            
                             
                             var titleMsg;
                             var textMsg;
@@ -195,8 +195,12 @@ var FormValidation = function () {
                                     type: 'success'
                                 },
                                 function(){
-                                    window.location.href = data.url;
+                                    // window.location.href = data.url;
                                     // console.log(data);
+
+                                    $('#matchEntriesTable').DataTable().ajax.reload();
+
+                                    $('#match-entry').modal('hide');                                    
                                 }
                             )
                             // console.log(data.method);
@@ -218,7 +222,7 @@ var FormValidation = function () {
         //main function to initiate the module
         init: function () {
 
-            athletesValidation();
+            matchEntriesValidation();
 
         }
 
@@ -227,100 +231,12 @@ var FormValidation = function () {
 }();
 
 /*
- * Image upload handler
- *
- */
-
- var ImageHandler = function () {
-
-    //File input change (to check upload just image [jpg, jpeg, png, gif, svg] & Max size 2048)
-    $("input:file").change(function (e){                
-        // error.appendTo();
-        // $(this).attr()
-        // alert($(this).parent('.input-group').children('.error_message'));
-        // $(this).parent('.input-group').children('.error_message')[0].innerHTML += "tes";
-        // alert($(this).parent('.input-group').children('.error_message')[0].innerHTML);
-
-        var form = $('#form_athlete');
-        var errorAlert = $('.alert-danger', form);
-        var successAlert = $('.alert-success', form);
-        var filename = $(this).val();          
-        var extension = filename.replace(/^.*\./, '');
-        var error_container = $(this).parent('.input-group').children('.file_error_message');
-        var error_message = '';
-
-        if (extension == filename) {
-            extension = '';
-        } else {                 
-            extension = extension.toLowerCase();
-        }
-
-        switch (extension) {
-            case '':
-                $(this).closest('.form-group').removeClass("has-error");
-                $(this).closest('.form-group').removeClass("has-success");
-                break;
-            case 'jpg': case 'jpeg': case 'png': case 'gif': case 'svg':
-
-                if(typeof $(this)[0].files[0] !== 'undefined'){
-                    if(($(this)[0].files[0].size/1024) > 2048){
-                        $(this).closest('.form-group').removeClass("has-success").addClass("has-error");
-                        error_message = "Max file size reached!";
-                        break;
-                    }
-                }
-
-                $(this).closest('.form-group').removeClass("has-error").addClass("has-success");                        
-                break;
-
-            default:
-                $(this).closest('.form-group').removeClass("has-success").addClass("has-error");
-                error_message = "Please select an image type file like above!";
-                break;
-        }
-
-        if(error_message != ''){
-            error_container.removeAttr('style');
-            error_container[0].setAttribute("style","color: #e73d4a;");
-            error_container[0].innerHTML = "";
-            error_container[0].innerHTML = error_message;
-        }else{
-            error_container[0].setAttribute("style","display: none;");
-        }
-
-        // Check if all requirement valid and show success text
-        if(errorAlert.is(":visible") || successAlert.is(":visible")){
-            var errors = 0;
-            form.each(function(){
-                if($(this).find('.form-group').hasClass('has-error')){
-                    errors += 1;
-                } 
-            });
-
-            if(errors == 0){ 
-                successAlert.show();
-                errorAlert.hide();
-            }else{
-                successAlert.hide();
-                errorAlert.show();
-            }
-        }
-
-        // $(this).closest('.form-group').addClass("has-success");
-    });
-
-
- };
-
-
-/*
  * Set up module
  *
  */ 
 
-jQuery(document).ready(function() {
+jQuery(document).ready(function() {    
     FormValidation.init();
-    ImageHandler();
 });
 
 /*
@@ -330,6 +246,17 @@ jQuery(document).ready(function() {
 
 $(document.body).on("change",".select2select",function(){
 
-    select2Change($(this), $('#form_athlete'));
-    
+    select2Change($(this), $('#form_match_entries'));
+
 });
+
+// Reset Validation
+function resetValidation(){
+    $('#form_match_entries').each(function(){
+        $(this).find('.form-group').removeClass('has-error').removeClass('has-success');            
+        $(this).find('.fa').removeClass('fa-check').removeClass('fa-warning');
+    });
+
+    $('.alert-danger', $('#form_match_entries')).hide();
+    $('.alert-success', $('#form_match_entries')).hide();
+}

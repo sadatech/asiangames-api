@@ -57,7 +57,7 @@ class TypeSportController extends Controller
                 ->editColumn('description', function ($item) {
                     $description = $this->replaceSingleQuote($item->description);
                     return
-                    "<a class='open-description-modal' data-target='#full-width' data-toggle='modal' data-title='".$item->name." description' data-description='".$description."' style='color: black;text-decoration: none;'> ".str_limit($item->description, 50)." </a>";
+                    "<a class='open-description-modal' data-target='#description-modal' data-toggle='modal' data-title='".$item->name." Description' data-description='".$description."' style='color: black;text-decoration: none;'> ".str_limit($item->description, 50)." </a>";
                 })
                 ->addColumn('action', function ($item) {
 

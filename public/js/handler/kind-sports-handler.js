@@ -242,40 +242,6 @@ jQuery(document).ready(function() {
 
 $(document.body).on("change",".select2select",function(){
 
-    if($(this).prop('required')) {
+    select2Change($(this), $('#form_kind_sports'));
 
-        var form = $('#form_kind_sports');
-        var errorAlert = $('.alert-danger', form);
-        var successAlert = $('.alert-success', form);
-
-        // set success class to the control group
-        $(this).closest('.form-group').removeClass('has-error').addClass('has-success');
-
-        // For select2 option
-        var span = $(this).parent('.input-group').children('.input-group-addon');
-        span.removeClass('display-hide');
-
-        var spanIcon = $(span).children('i');
-        spanIcon.removeClass('fa-warning').addClass("fa-check");
-        spanIcon.removeClass('font-red').addClass("font-green");
-
-        // Check if all requirement valid and show success text
-        if(errorAlert.is(":visible") || successAlert.is(":visible")){
-            var errors = 0;
-            form.each(function(){
-                if($(this).find('.form-group').hasClass('has-error')){
-                    errors += 1;
-                } 
-            });
-
-            if(errors == 0){ 
-                successAlert.show();
-                errorAlert.hide();
-            }else{
-                successAlert.hide();
-                errorAlert.show();
-            }
-        }
-
-    }
 });

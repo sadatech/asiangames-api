@@ -7,6 +7,7 @@ use App\BranchSport;
 use App\KindSport;
 use App\TypeSport;
 use App\Athlete;
+use App\MatchEntry;
 
 class RelationController extends Controller
 {
@@ -29,4 +30,9 @@ class RelationController extends Controller
         return $countAthletes;
     }
 
+    public function typeMatchRelation(Request $request){
+        $countMatchEntry = MatchEntry::where('typesport_id', $request->typeSportId)->count();
+
+        return $countMatchEntry;
+    }
 }
