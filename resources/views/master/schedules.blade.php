@@ -49,7 +49,7 @@
                     	<tr>
                     		<th> No. </th>                            
                         	<th> Code </th>
-                            <th> Date </th>
+                            <th> Date & Time </th>
                             <th> Type Sport </th>                            
                             <th> Description </th>
                             <th> Options </th>                        
@@ -103,7 +103,8 @@
 	            {data: 'action', name: 'action', searchable: false, sortable: false},           
 	        ],
 	        "columnDefs": [
-        		{"className": "dt-center", "targets": [0]}
+        		{"className": "dt-center", "targets": [0]},
+                {"className": "dt-center", "targets": [5]},
       		],
             "order": [ [0, 'desc'] ],
     	});

@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Master;
 
-use App\Schedule;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Filters\MatchEntryFilters;
 use Yajra\Datatables\Facades\Datatables;
-use App\Filters\ScheduleFilters;
 use App\Traits\StringTrait;
 use DB;
-use Carbon\Carbon;
+use App\MatchEntry;
 
-class ScheduleController extends Controller
+class MatchEntryController extends Controller
 {
-    use StringTrait;
+	use StringTrait;
 
     /**
      * Display a listing of the resource.
@@ -22,7 +21,7 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        return view('master.schedules');
+        return view('master.matchentries');
     }
 
     /**
@@ -32,10 +31,10 @@ class ScheduleController extends Controller
      */
     public function masterDataTable(){
 
-        $data = DB::table('schedules')
-                    ->join('type_sports', 'schedules.typesport_id', '=', 'type_sports.id')
-                    ->where('schedules.deleted_at', null)
-                    ->select('schedules.*', 'type_sports.name as typesport_name')->get();
+        $data = DB::table('match_entries')
+                    ->join('type_sports', 'match_entries.typesport_id', '=', 'type_sports.id')
+                    ->where('match_entries.deleted_at', null)
+                    ->select('match_entries.*', 'type_sports.name as typesport_name')->get();
 
         return $this->makeTable($data);
     }
@@ -55,18 +54,15 @@ class ScheduleController extends Controller
     public function makeTable($data){
 
         return Datatables::of($data)
-                ->editColumn('datetime', function ($item){
-                    return $this->convertDateTime($item->datetime);
-                })
                 ->editColumn('description', function ($item) {
                     $description = $this->replaceSingleQuote($item->description);
                     return
-                    "<a class='open-description-modal' data-target='#description-modal' data-toggle='modal' data-title='Schedule Description (Code : ".$item->code.")' data-description='".$description."' style='color: black;text-decoration: none;'> ".str_limit($item->description, 50)." </a>";                   
+                    "<a class='open-description-modal' data-target='#description-modal' data-toggle='modal' data-title='Match Entry Description (Code : ".$item->code.")' data-description='".$description."' style='color: black;text-decoration: none;'> ".str_limit($item->description, 50)." </a>";                   
                 })
                 ->addColumn('action', function ($item) {
 
                     return 
-                    "<a href='".url('schedules/edit/'.$item->id)."' class='btn btn-sm btn-warning'><i class='fa fa-pencil'></i></a>
+                    "<a href='#match-entry' data-id='".$item->id."' data-toggle='modal' class='btn btn-sm btn-warning edit-match-entry'><i class='fa fa-pencil'></i></a>
                     <button class='btn btn-danger btn-sm btn-delete deleteButton' data-toggle='confirmation' data-singleton='true' value='".$item->id."'><i class='fa fa-trash-o'></i></button>";
                     
                 })
@@ -82,7 +78,7 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        return view('master.form.schedule-form');
+        //
     }
 
     /**
@@ -100,17 +96,12 @@ class ScheduleController extends Controller
 
         $this->validate($request, [
             'code' => 'required',
-            'typesport_id' => 'required',
-            'datetime' => 'required',
-            ]);
+            'typesport_id' => 'required',            
+            ]);        
 
-        // Convert string from DateTimePicker to datetime
-        $datetime = $this->replaceDash($request['datetime']);
-        $request['datetime'] = Carbon::parse($datetime)->format('Y-m-d H:i:s');
-
-       	$schedule = Schedule::create($request->all());
+       	$matchentry = MatchEntry::create($request->all());
         
-        return response()->json(['responseText' => 'Success!', 'url' => url('/schedules')]);
+        return response()->json(['responseText' => 'Success!']);
     }
 
     /**
@@ -132,9 +123,10 @@ class ScheduleController extends Controller
      */
     public function edit($id)
     {
-        $data = Schedule::where('id', $id)->first();
+        $data = MatchEntry::with('typeSport')->where('id', $id)->first();
 
-        return view('master.form.schedule-form', compact('data'));
+        return response()->json($data);
+        // return view('master.form.schedule-form', compact('data'));
     }
 
     /**
@@ -148,22 +140,12 @@ class ScheduleController extends Controller
     {
         $this->validate($request, [
             'code' => 'required',
-            'typesport_id' => 'required',
-            'datetime' => 'required',
+            'typesport_id' => 'required',            
             ]);
 
-        // Convert string from DateTimePicker to datetime
-        $datetime = $this->replaceDash($request['datetime']);
-        $request['datetime'] = Carbon::parse($datetime)->format('Y-m-d H:i:s');
+        $schedule = MatchEntry::find($id)->update($request->all());
 
-        $schedule = Schedule::find($id)->update($request->all());
-
-        return response()->json(
-            [
-                'responseText' => 'Success!', 
-                'url' => url('/schedules'),
-                'method' => $request->_method
-            ]);  
+        return response()->json(['responseText' => 'Success!']);
     }
 
     /**
@@ -174,7 +156,7 @@ class ScheduleController extends Controller
      */
     public function destroy($id)
     {
-        $schedule = Schedule::destroy($id);
+        $schedule = MatchEntry::destroy($id);
 
         return response()->json($id);
     }

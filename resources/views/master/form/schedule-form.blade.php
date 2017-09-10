@@ -30,6 +30,8 @@
 
 @section('content')
 
+@inject('service','App\Services\CodeService')
+
 <div class="row">
 	<div class="col-lg-12 col-lg-3 col-md-3 col-sm-6 col-xs-12">
 	    <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -75,18 +77,28 @@
 				          <div class="col-sm-9">
 				          	<div class="input-icon right">
 				          		<i class="fa"></i>
-				            	<input type="text" name="code" class="form-control" value="{{ @$data->code }}" placeholder="Input Code" />
+				            	<input type="text" name="code" class="form-control" value="{{ (@$data->code) ? @$data->code : $service->getScheduleCode() }}" readonly />
 				            </div>
 				          </div>
 				        </div>
 
 				        <div class="form-group">
-				          <label class="col-sm-2 control-label">Datetime</label>
+				          <label class="col-sm-2 control-label">Date & Time</label>
 				          <div class="col-sm-9">
-				          	<div class="input-icon right">
-				          		<i class="fa"></i>
-				            	<input type="text" name="datetime" class="form-control" value="{{ @$data->datetime }}" placeholder="Input Datetime" />
-				            </div>
+				          	<div class="input-group date form_datetime datetime_schedule">
+				          		<span class="input-group-btn">
+                                    <button class="btn default date-set" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                </span>
+
+                                <input name="datetime" type="text" size="16" readonly class="datetimeinput form-control" required>
+
+                                <span class="input-group-addon display-hide">
+                                	<i class="fa"></i>
+                                </span>
+
+                            </div>
 				          </div>
 				        </div>
 
@@ -134,12 +146,16 @@
 @endsection
 
 @section('additional-scripts')	
+	<!-- BEGIN SELECT2 SCRIPTS -->
+    <script src="{{ asset('js/handler/select2-handler.js') }}" type="text/javascript"></script>
+    <!-- END SELECT2 SCRIPTS -->
+    <!-- BEGIN SELECT2 SCRIPTS -->
+    <script src="{{ asset('js/handler/datetimepicker-handler.js') }}" type="text/javascript"></script>
+    <!-- END SELECT2 SCRIPTS -->
 	<!-- BEGIN PAGE VALIDATION SCRIPTS -->
     <script src="{{ asset('js/handler/schedules-handler.js') }}" type="text/javascript"></script>
     <!-- END PAGE VALIDATION SCRIPTS -->
-    <!-- BEGIN SELECT2 SCRIPTS -->
-    <script src="{{ asset('js/handler/select2-handler.js') }}" type="text/javascript"></script>
-    <!-- END SELECT2 SCRIPTS -->
+    
     <script>
 		$(document).ready(function () {
 			$.ajaxSetup({
@@ -159,8 +175,11 @@
                         }
                     }));
 
-	       // Set select2 => 'branchsport' if method PATCH	       
-	       setIfPatch($("#typesport"), "{{ @$data->typesport_id }}", "{{ @$data->typeSport->name }}");	     	      
+	       // Set select2 => 'typesport' if method PATCH	       
+	       setSelect2IfPatch($("#typesport"), "{{ @$data->typesport_id }}", "{{ @$data->typeSport->name }}");
+
+	       // Set datetimepicker if method PATCH	       
+	       setDateTimePickerIfPatch($('.datetime_schedule'), "{{ @$data->datetime }}");	     	      
 
 		});
 	</script>

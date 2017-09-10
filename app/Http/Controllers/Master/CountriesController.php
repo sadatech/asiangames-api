@@ -58,7 +58,7 @@ class CountriesController extends Controller
                     // $description = str_replace("'", "&#39;", $item->description);
                     $description = $this->replaceSingleQuote($item->description);
                     return
-                    "<a class='open-description-modal' data-target='#full-width' data-toggle='modal' data-title='".$item->name." description' data-description='".$description."' style='color: black;text-decoration: none;'> ".str_limit($item->description, 50)." </a>";
+                    "<a class='open-description-modal' data-target='#description-modal' data-toggle='modal' data-title='".$item->name." Description' data-description='".$description."' style='color: black;text-decoration: none;'> ".str_limit($item->description, 50)." </a>";
                 })
                 ->editColumn('flag', function ($item) {
 

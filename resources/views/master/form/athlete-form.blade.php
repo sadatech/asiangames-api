@@ -159,12 +159,13 @@
 @endsection
 
 @section('additional-scripts')	
+	<!-- BEGIN SELECT2 SCRIPTS -->
+    <script src="{{ asset('js/handler/select2-handler.js') }}" type="text/javascript"></script>
+    <!-- END SELECT2 SCRIPTS -->
 	<!-- BEGIN PAGE VALIDATION SCRIPTS -->
     <script src="{{ asset('js/handler/athletes-handler.js') }}" type="text/javascript"></script>
     <!-- END PAGE VALIDATION SCRIPTS -->
-    <!-- BEGIN SELECT2 SCRIPTS -->
-    <script src="{{ asset('js/handler/select2-handler.js') }}" type="text/javascript"></script>
-    <!-- END SELECT2 SCRIPTS -->
+    
     <script>
 		$(document).ready(function () {
 			$.ajaxSetup({
@@ -174,7 +175,7 @@
 	        });
 
 	       $('#country').select2(setOptions('{{ route("data.countries") }}', 'Country', function (params) {
-                        // console.log(params);
+                        console.log(params);
                         return filterData('name', params.term);
                     }, function (data, params) {
                         return {
@@ -185,8 +186,9 @@
                     }));
 
 	       // Set select2 => 'country' if method PATCH	       
-	       setIfPatch($("#country"), "{{ @$data->country_id }}", "{{ @$data->country->name }}");	     	      
+	       setSelect2IfPatch($("#country"), "{{ @$data->country_id }}", "({{ @$data->country->code }}) {{ @$data->country->name }}");		           	     
 
 		});
+
 	</script>
 @endsection

@@ -76,7 +76,16 @@
                                     <span class="selected"></span>                 
                                 @endif                                
                             </a>                            
-                        </li>               
+                        </li>
+                        <li class="nav-item start active open">
+                            <a href="{{ url('matchentries') }}" class="nav-link nav-toggle">
+                                <i class="fa fa-calendar-minus-o"></i>
+                                <span class="title">Match Entries</span>
+                                @if(Request::is('matchentries*'))
+                                    <span class="selected"></span>                 
+                                @endif                                
+                            </a>                            
+                        </li>                
                     </ul>
                     <!-- END SIDEBAR MENU -->
                 </div>
