@@ -99,6 +99,8 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('relation/kindtype', ['as'=> 'relation.kindtype','uses'=>'RelationController@kindTypeRelation']);
 	Route::post('relation/countryathlete', ['as'=> 'relation.countryathlete','uses'=>'RelationController@countryAthleteRelation']);
 	Route::post('relation/typematch', ['as'=> 'relation.typematch','uses'=>'RelationController@typeMatchRelation']);
+	Route::post('relation/athletematchgroup', ['as'=> 'relation.athletematchgroup','uses'=>'RelationController@athleteMatchGroupRelation']);
+	Route::post('relation/matchentrymatchgroup', ['as'=> 'relation.matchentrymatchgroup','uses'=>'RelationController@matchEntryMatchGroupRelation']);
 
 	/* Data with filter (select2, list) */
 	Route::post('data/branchsports', ['as'=> 'data.branchsports','uses'=>'Master\BranchSportController@getDataWithFilters']);

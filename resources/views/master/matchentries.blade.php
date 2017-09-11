@@ -212,10 +212,10 @@
         $('#matchEntriesTable').on('click', 'tr td button.deleteButton', function () {
             var id = $(this).val();
 
-            // if(kindTypeRelation(id) > 0){
-            //     swal("Warning", "This data still related to others! Please check the relation first.", "warning");
-            //     return;
-            // }
+            if(athleteMatchGroupRelation(id) > 0){
+                swal("Warning", "This data still related to others! Please check the relation first.", "warning");
+                return;
+            }
 
             	swal({
 					title: "Are you sure?",
@@ -244,7 +244,7 @@
                             success: function (data) {
                                 // console.log(data);
 
-                                $("#"+id).remove();
+                                $("#ME"+id).remove();
                                 // $('#sportsTable').DataTable().ajax.reload();
                             },
                             error: function (data) {
@@ -480,7 +480,7 @@
                         success: function (data) {
                             // console.log(data);
 
-                            $("#"+id).remove();
+                            $("#MG"+id).remove();
                             // $('#sportsTable').DataTable().ajax.reload();
                         },
                         error: function (data) {

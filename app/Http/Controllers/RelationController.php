@@ -8,6 +8,7 @@ use App\KindSport;
 use App\TypeSport;
 use App\Athlete;
 use App\MatchEntry;
+use App\MatchGroup;
 
 class RelationController extends Controller
 {
@@ -35,4 +36,16 @@ class RelationController extends Controller
 
         return response()->json($countMatchEntry);
     }
+
+    public function athleteMatchGroupRelation(Request $request){
+        $countMatchGroup = MatchGroup::where('athlete_id', $request->athleteId)->count();
+
+        return response()->json($countMatchGroup);
+    }
+
+    public function matchEntryMatchGroupRelation(Request $request){
+        $countMatchGroup = MatchGroup::where('matchentry_id', $request->matchEntryId)->count();
+
+        return response()->json($countMatchGroup);
+    }    
 }

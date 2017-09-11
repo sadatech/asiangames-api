@@ -52,6 +52,9 @@ class MatchGroupController extends Controller
     public function makeTable($data){
 
         return Datatables::of($data)
+        		->editColumn('id', function ($item) {
+        			return "MG".$item->id;
+        		})
                 ->editColumn('code', function ($item) {
                     return
                     "<a class='code-label' data-code='".$item->code."' style='padding: 8px;'>".$item->code."</a>";          

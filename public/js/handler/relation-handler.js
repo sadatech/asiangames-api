@@ -59,3 +59,33 @@ function typeMatchRelation(typeSportId) {
         }
     }).responseText);
 }
+
+// Checking if athlete still has child data in match group
+function athleteMatchGroupRelation(athleteId) {
+    return JSON.parse($.ajax({
+        type: 'POST',
+        url: 'relation/athletematchgroup',
+        dataType: 'json',
+        data: { athleteId: athleteId },
+        global: false,
+        async: false,
+        success: function (data) {
+            return data;
+        }
+    }).responseText);
+}
+
+// Checking if match entry still has child data in match group
+function athleteMatchGroupRelation(matchEntryId) {
+    return JSON.parse($.ajax({
+        type: 'POST',
+        url: 'relation/matchentrymatchgroup',
+        dataType: 'json',
+        data: { matchEntryId: matchEntryId },
+        global: false,
+        async: false,
+        success: function (data) {
+            return data;
+        }
+    }).responseText);
+}
