@@ -30,7 +30,7 @@
 
 @section('content')
 
-@inject('service','App\Services\CodeService')
+@inject('service','App\Http\Controllers\ServiceController')
 
 <div class="row">
 	<div class="col-lg-12 col-lg-3 col-md-3 col-sm-6 col-xs-12">

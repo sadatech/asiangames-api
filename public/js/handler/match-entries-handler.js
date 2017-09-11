@@ -198,6 +198,7 @@ var FormValidation = function () {
                                     // window.location.href = data.url;
                                     // console.log(data);
 
+                                    $('#matchEntriesTable').DataTable().search('').draw();
                                     $('#matchEntriesTable').DataTable().ajax.reload();
 
                                     $('#match-entry').modal('hide');                                    

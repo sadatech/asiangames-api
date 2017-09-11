@@ -34,9 +34,8 @@ class AthleteControllers extends Controller
      */
     public function masterDataTable(){
 
-        $data = DB::table('athletes')
-                    ->join('countries', 'athletes.country_id', '=', 'countries.id')
-                    ->where('athletes.deleted_at', null)
+        $data = Athlete::where('athletes.deleted_at', null)
+                    ->join('countries', 'athletes.country_id', '=', 'countries.id')                    
                     ->select('athletes.*', 'countries.name as country_name', 'countries.code as country_code')->get();
 
         return $this->makeTable($data);
@@ -48,6 +47,8 @@ class AthleteControllers extends Controller
         /* Note : kalo nanti butuh fungsi ->get() , tinggal ->get() di variable nya aja, 
          * e.g : $data->get();
          */
+        // dd($filters);
+
         $data = Athlete::filter($filters)->get();
 
         return $data;

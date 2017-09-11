@@ -4,47 +4,46 @@ namespace App\Http\Controllers\Master;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Filters\MatchEntryFilters;
+use App\Filters\MatchGroupFilters;
 use Yajra\Datatables\Facades\Datatables;
 use App\Traits\StringTrait;
 use DB;
-use App\MatchEntry;
+use App\MatchGroup;
 
-class MatchEntryController extends Controller
+class MatchGroupController extends Controller
 {
-	use StringTrait;
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return view('master.matchentries');
-    }
+    use StringTrait;
 
     /**
      * Data for DataTables
      *
      * @return \Illuminate\Http\Response
      */
-    public function masterDataTable(){
+    public function masterDataTable(Request $request){    	
 
-        $data = MatchEntry::where('match_entries.deleted_at', null)
-                    ->join('type_sports', 'match_entries.typesport_id', '=', 'type_sports.id')                
-                    ->select('match_entries.*', 'type_sports.name as typesport_name')->get();
+        $data = MatchGroup::where('match_groups.deleted_at', null)
+        			->join('match_entries', 'match_groups.matchentry_id', '=', 'match_entries.id')
+                    ->join('athletes', 'match_groups.athlete_id', '=', 'athletes.id')
+                    ->join('countries', 'athletes.country_id','=', 'countries.id')
+                    ->select('match_groups.*', DB::raw('CONCAT(athletes.firstname, " ", athletes.lastname) as fullname'), DB::raw('CONCAT("(", countries.code, ") ", countries.name) as country'))
+        			->get();
+
+        // If there is request for match group by match entry
+        if($request['matchentry_id']){
+        	$data = $data->where('matchentry_id', $request['matchentry_id']);
+        }
 
         return $this->makeTable($data);
     }
 
-    // Data for DataTables with Filters
-    public function getDataWithFilters(ScheduleFilters $filters){        
+
+    // Data with Filters
+    public function getDataWithFilters(MatchGroupFilters $filters){        
         
         /* Note : kalo nanti butuh fungsi ->get() , tinggal ->get() di variable nya aja, 
          * e.g : $data->get();
-         */
-        $data = Schedule::filter($filters)->get();
+         */       
+        $data = MatchGroup::filter($filters)->get();
 
         return $data;
     }
@@ -55,18 +54,12 @@ class MatchEntryController extends Controller
         return Datatables::of($data)
                 ->editColumn('code', function ($item) {
                     return
-                    "<a class='code-label' data-id='".$item->id."' data-code='".$item->code."' style='padding: 8px;'>".$item->code."</a>";          
-                })
-                ->editColumn('description', function ($item) {
-                    $description = $this->replaceSingleQuote($item->description);
-                    return
-                    "<a class='open-description-modal' data-target='#description-modal' data-toggle='modal' data-title='Match Entry Description (Code : ".$item->code.")' data-description='".$description."' style='color: black;text-decoration: none;'> ".str_limit($item->description, 50)." </a>";                   
+                    "<a class='code-label' data-code='".$item->code."' style='padding: 8px;'>".$item->code."</a>";          
                 })
                 ->addColumn('action', function ($item) {
 
                     return 
-                    "<a href='#match-entry' data-id='".$item->id."' data-toggle='modal' class='btn btn-sm btn-warning edit-match-entry'><i class='fa fa-pencil'></i></a>
-                    <button class='btn btn-danger btn-sm btn-delete deleteButton' data-toggle='confirmation' data-singleton='true' value='".$item->id."'><i class='fa fa-trash-o'></i></button>";
+                    "<button class='btn btn-danger btn-sm btn-delete deleteButton' data-toggle='confirmation' data-singleton='true' value='".$item->id."'><i class='fa fa-trash-o'></i></button>";
                     
                 })
                 ->rawColumns(['code', 'description', 'action'])
@@ -91,18 +84,14 @@ class MatchEntryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {    	
-        // dd($request->all());        
-
-        // $datetime = str_replace("-", "", $request['datetime']);
-        // dd(Carbon::parse($datetime)->format('Y-m-d h:i:s'));
+    {    	        
 
         $this->validate($request, [
-            'code' => 'required',
-            'typesport_id' => 'required',            
+            'matchentry_id' => 'required',
+            'athlete_id' => 'required',            
             ]);        
 
-       	$matchentry = MatchEntry::create($request->all());
+       	$matchgroup = MatchGroup::create($request->all());
         
         return response()->json(['responseText' => 'Success!']);
     }
@@ -146,7 +135,7 @@ class MatchEntryController extends Controller
             'typesport_id' => 'required',            
             ]);
 
-        $schedule = MatchEntry::find($id)->update($request->all());
+        $matchgroup = MatchEntry::find($id)->update($request->all());
 
         return response()->json(['responseText' => 'Success!']);
     }
@@ -159,7 +148,7 @@ class MatchEntryController extends Controller
      */
     public function destroy($id)
     {
-        $schedule = MatchEntry::destroy($id);
+        $matchgroup = MatchGroup::destroy($id);
 
         return response()->json($id);
     }

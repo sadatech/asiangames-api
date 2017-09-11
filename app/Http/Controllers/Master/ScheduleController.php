@@ -32,9 +32,8 @@ class ScheduleController extends Controller
      */
     public function masterDataTable(){
 
-        $data = DB::table('schedules')
+        $data = Schedule::where('schedules.deleted_at', null)
                     ->join('type_sports', 'schedules.typesport_id', '=', 'type_sports.id')
-                    ->where('schedules.deleted_at', null)
                     ->select('schedules.*', 'type_sports.name as typesport_name')->get();
 
         return $this->makeTable($data);
