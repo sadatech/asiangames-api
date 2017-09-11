@@ -53,6 +53,9 @@ class MatchEntryController extends Controller
     public function makeTable($data){
 
         return Datatables::of($data)
+                ->editColumn('id', function ($item) {
+                    return "ME".$item->id;
+                })
                 ->editColumn('code', function ($item) {
                     return
                     "<a class='code-label' data-id='".$item->id."' data-code='".$item->code."' style='padding: 8px;'>".$item->code."</a>";          
