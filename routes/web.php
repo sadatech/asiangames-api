@@ -75,6 +75,13 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::patch('matchentries/{id}', 'Master\MatchEntryController@update');
 	Route::delete('matchentries/{id}', 'Master\MatchEntryController@destroy');
 
+	/** Match Groups **/	
+	Route::get('matchgroups/create', 'Master\MatchGroupController@create');
+	Route::post('matchgroups', 'Master\MatchGroupController@store');
+	Route::get('matchgroups/edit/{id}', 'Master\MatchGroupController@edit');
+	Route::patch('matchgroups/{id}', 'Master\MatchGroupController@update');
+	Route::delete('matchgroups/{id}', 'Master\MatchGroupController@destroy');
+
 	/* Utilities */
 
 	/* Datatables */
@@ -85,6 +92,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('datatable/athletes', ['as'=> 'datatable.athletes','uses'=>'Master\AthleteControllers@masterDataTable']);
 	Route::post('datatable/schedules', ['as'=> 'datatable.schedules','uses'=>'Master\ScheduleController@masterDataTable']);
 	Route::post('datatable/matchentries', ['as'=> 'datatable.matchentries','uses'=>'Master\MatchEntryController@masterDataTable']);
+	Route::post('datatable/matchgroups', ['as'=> 'datatable.matchgroups','uses'=>'Master\MatchGroupController@masterDataTable']);
 
 	/* Relation */
 	Route::post('relation/branchkind', ['as'=> 'relation.branchkind','uses'=>'RelationController@branchKindRelation']);
@@ -97,11 +105,15 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('data/kindsports', ['as'=> 'data.kindsports','uses'=>'Master\KindSportController@getDataWithFilters']);
 	Route::post('data/typesports', ['as'=> 'data.typesports','uses'=>'Master\TypeSportController@getDataWithFilters']);
 	Route::post('data/countries', ['as'=> 'data.countries','uses'=>'Master\CountriesController@getDataWithFilters']);
+	Route::post('data/athletes', ['as'=> 'data.athletes','uses'=>'Master\AthleteControllers@getDataWithFilters']);
 
 	/* Page(s) & etc */
 
 	/* Summary */
 	Route::get('sport', 'PageController@sportSummary');
+
+	/* Services */
+	Route::get('service/matchentrycode', 'ServiceController@getMatchEntryCode');
 });
 
 Auth::routes();

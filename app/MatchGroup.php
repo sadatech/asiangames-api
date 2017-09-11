@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Filters\QueryFilters;
 
-class Athlete extends Model
+class MatchGroup extends Model
 {
+    //
     use SoftDeletes;
 
-    //
     protected $fillable = [
-        'firstname', 'lastname', 'country_id', 'photo'
+        'matchentry_id', 'athlete_id', 
     ];
 
     /**
@@ -22,24 +22,24 @@ class Athlete extends Model
      */
     protected $dates = ['deleted_at'];
 
-    /* Metode tambahan untuk model Branch Sport. */
+	/* Metode tambahan untuk model Match Grouping. */
 
-    /**
+	/**
      * Relation Method(s).
      *
      */
 
-    public function country()
+	public function athlete()
     {
-        return $this->belongsTo('App\Country', 'country_id');
+        return $this->belongsTo('App\Athlete', 'athlete_id');
     }
 
-    public function matchGroups()
+    public function matchEntry()
     {
-        return $this->hasMany('App\MatchGroup', 'athlete_id');
+        return $this->belongsTo('App\MatchEntry', 'matchentry_id');
     }
 
-    /**
+	/**
      * Filtering Branch Sport Berdasarakan Request User
      * @param $query
      * @param QueryFilters $filters

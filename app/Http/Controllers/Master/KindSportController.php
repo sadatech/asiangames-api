@@ -31,9 +31,8 @@ class KindSportController extends Controller
      */
     public function masterDataTable(){
 
-        $data = DB::table('kind_sports')
+        $data = KindSport::where('kind_sports.deleted_at', null)
                     ->join('branch_sports', 'kind_sports.branchsport_id', '=', 'branch_sports.id')
-                    ->where('kind_sports.deleted_at', null)
                     ->select('kind_sports.*', 'branch_sports.name as branchsport_name')->get();
 
         return $this->makeTable($data);

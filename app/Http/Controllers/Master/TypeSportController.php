@@ -31,9 +31,8 @@ class TypeSportController extends Controller
      */
     public function masterDataTable(){
 
-        $data = DB::table('type_sports')
-                    ->join('kind_sports', 'type_sports.kindsport_id', '=', 'kind_sports.id')
-                    ->where('type_sports.deleted_at', null)
+        $data = TypeSport::where('type_sports.deleted_at', null)
+                    ->join('kind_sports', 'type_sports.kindsport_id', '=', 'kind_sports.id')                    
                     ->select('type_sports.*', 'kind_sports.name as kindsport_name')->get();
 
         return $this->makeTable($data);
