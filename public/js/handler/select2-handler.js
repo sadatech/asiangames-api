@@ -10,7 +10,8 @@ function setOptions (url, placeholder, data, processResults) {
             delay: 250,
             data: data,
             processResults: processResults
-        },        
+        },   
+        // minimumInputLength: 2,     
         width: '100%',
         placeholder: placeholder,
     }
@@ -20,19 +21,45 @@ function setOptions (url, placeholder, data, processResults) {
 function filterData (search, term) {
 
     // Check if term is ""
-    (term == "") ? term = "all" : term = term;
+    (term == "" || term == null) ? term = "all" : term = term;
 
     var results = {};
     if ($.isEmptyObject(this.filters)) {
-        return {
-            [search]: term
+
+        // Check search term is array or string
+        if(!$.isArray(search)){
+
+            return {
+                [search]: term
+            }
         }
+
+        search.forEach(function(item) {
+            results[item] = term
+        });
+
+        console.log('result-search');
+        console.log(results);
+
+        return results;
     }
 
     for (var filter in this.filters) {
-        results[filter] = this.filters[filter];
-        results[search] = term
+        results[filter] = this.filters[filter];        
     }
+
+    // Check search term is array or string
+    if(!$.isArray(search)){
+        results[search] = term
+    }else{
+        search.forEach(function(item) {
+            results[item] = term
+        });
+    }
+
+    console.log('results');
+    console.log(results);
+
     return results;
 }
 

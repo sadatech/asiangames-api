@@ -82,6 +82,14 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::patch('matchgroups/{id}', 'Master\MatchGroupController@update');
 	Route::delete('matchgroups/{id}', 'Master\MatchGroupController@destroy');
 
+	/** Schedule Details **/	
+	Route::get('scheduledetails', 'Master\ScheduleDetailController@index');
+	Route::get('scheduledetails/create', 'Master\ScheduleDetailController@create');
+	Route::post('scheduledetails', 'Master\ScheduleDetailController@store');
+	Route::get('scheduledetails/edit/{id}', 'Master\ScheduleDetailController@edit');
+	Route::patch('scheduledetails/{id}', 'Master\ScheduleDetailController@update');
+	Route::delete('scheduledetails/{id}', 'Master\ScheduleDetailController@destroy');
+
 	/* Utilities */
 
 	/* Datatables */
@@ -93,6 +101,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('datatable/schedules', ['as'=> 'datatable.schedules','uses'=>'Master\ScheduleController@masterDataTable']);
 	Route::post('datatable/matchentries', ['as'=> 'datatable.matchentries','uses'=>'Master\MatchEntryController@masterDataTable']);
 	Route::post('datatable/matchgroups', ['as'=> 'datatable.matchgroups','uses'=>'Master\MatchGroupController@masterDataTable']);
+	Route::post('datatable/scheduledetails', ['as'=> 'datatable.scheduledetails','uses'=>'Master\ScheduleDetailController@masterDataTable']);
 
 	/* Relation */
 	Route::post('relation/branchkind', ['as'=> 'relation.branchkind','uses'=>'RelationController@branchKindRelation']);
@@ -108,6 +117,8 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('data/typesports', ['as'=> 'data.typesports','uses'=>'Master\TypeSportController@getDataWithFilters']);
 	Route::post('data/countries', ['as'=> 'data.countries','uses'=>'Master\CountriesController@getDataWithFilters']);
 	Route::post('data/athletes', ['as'=> 'data.athletes','uses'=>'Master\AthleteControllers@getDataWithFilters']);
+	Route::post('data/matchentries', ['as'=> 'data.matchentries','uses'=>'Master\MatchEntryController@getDataWithFilters']);
+	Route::post('data/schedules', ['as'=> 'data.schedules','uses'=>'Master\ScheduleController@getDataWithFilters']);
 
 	/* Page(s) & etc */
 

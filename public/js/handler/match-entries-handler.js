@@ -22,13 +22,16 @@ var FormValidation = function () {
                         minlength: 2,
                         required: true,
                     },
-                    typesport:{
+                    typesport_id:{
                         required: true,
                     },
+                    description:{
+                        required: true,
+                    }
 
                 },
                 messages:{
-                    typesport:{
+                    typesport_id:{
                         required: "Please select a Type Sport!"
                     }
                 },
