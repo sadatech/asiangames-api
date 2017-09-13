@@ -49,7 +49,7 @@ class AthleteControllers extends Controller
          */
         // dd($filters);
 
-        $data = Athlete::filter($filters)->get();
+        $data = Athlete::filter($filters)->with('country')->get();
 
         return $data;
     }

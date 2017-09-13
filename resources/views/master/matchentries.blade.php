@@ -36,7 +36,7 @@
                 <div class="row">
 
                     <!-- BEGIN MATCH ENTRY -->
-                    <div class="col-md-12" id="matchEntryContent">
+                    <div class="col-md-7" id="matchEntryContent">
 
         	        	<div class="table-toolbar">
                         	<div class="row">
@@ -509,7 +509,7 @@
         }, function (data, params) {
             return {
                 results: $.map(data, function (obj) {                                
-                    return {id: obj.id, text: obj.firstname+" "+obj.lastname}
+                    return {id: obj.id, text: obj.firstname+" "+obj.lastname+" ("+obj.country.name+")"}
                 })
             }
         }));
@@ -523,12 +523,12 @@
      */
 
      function matchGroupShow(){
-        $('#matchEntryContent').removeClass('col-md-12').addClass('col-md-7');
+        // $('#matchEntryContent').removeClass('col-md-12').addClass('col-md-7');
         $('#matchGroupContent').removeClass('display-hide');
      }
 
      function matchGroupHide(){
-        $('#matchEntryContent').removeClass('col-md-7').addClass('col-md-12');
+        // $('#matchEntryContent').removeClass('col-md-7').addClass('col-md-12');
         $('#matchGroupContent').addClass('display-hide');
      }
 

@@ -39,12 +39,12 @@ class MatchEntryController extends Controller
     }
 
     // Data for DataTables with Filters
-    public function getDataWithFilters(ScheduleFilters $filters){        
+    public function getDataWithFilters(MatchEntryFilters $filters){        
         
         /* Note : kalo nanti butuh fungsi ->get() , tinggal ->get() di variable nya aja, 
          * e.g : $data->get();
          */
-        $data = Schedule::filter($filters)->get();
+        $data = MatchEntry::filter($filters)->with('typeSport')->get();
 
         return $data;
     }
@@ -63,7 +63,7 @@ class MatchEntryController extends Controller
                 ->editColumn('description', function ($item) {
                     $description = $this->replaceSingleQuote($item->description);
                     return
-                    "<a class='open-description-modal' data-target='#description-modal' data-toggle='modal' data-title='Match Entry Description (Code : ".$item->code.")' data-description='".$description."' style='color: black;text-decoration: none;'> ".str_limit($item->description, 50)." </a>";                   
+                    "<a class='open-description-modal' data-target='#description-modal' data-toggle='modal' data-title='Match Entry Description (Code : ".$item->code.")' data-description='".$description."' style='color: black;text-decoration: none;'> ".str_limit($description, 50)." </a>";                   
                 })
                 ->addColumn('action', function ($item) {
 

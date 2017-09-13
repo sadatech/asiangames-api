@@ -5,10 +5,10 @@
 
 var FormValidation = function () {
 
-    // Schedules Master Validation
-    var schedulesValidation = function() {
+    // Schedule Details Master Validation
+    var scheduleDetailsValidation = function() {
 
-            var form = $('#form_schedules');
+            var form = $('#form_schedule_details');
             var errorAlert = $('.alert-danger', form);
             var successAlert = $('.alert-success', form);
 
@@ -18,25 +18,23 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                    code: {
-                        minlength: 2,
+
+                    schedule_id:{
                         required: true,
                     },
-                    typesport_id:{
+                    matchentry_id:{
                         required: true,
                     },
-                    datetime:{
-                        required: true,
-                    },
-                    description:{
-                        required: true,
-                    }
 
                 },
                 messages:{
-                    typesport_id:{
-                        required: "Please select a Type Sport!"
+                    schedule_id:{
+                        required: "Please select a Schedule!"
+                    },
+                    matchentry_id:{
+                        required: "Please select a Match Entry!"
                     }
+
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
@@ -201,8 +199,10 @@ var FormValidation = function () {
                                     type: 'success'
                                 },
                                 function(){
-                                    window.location.href = data.url;
-                                    // console.log(data);
+                                    
+                                    $('#scheduleDetailsTable').DataTable().ajax.reload();
+
+                                    $('#schedule-detail').modal('hide');                                    
                                 }
                             )
                             // console.log(data.method);
@@ -224,7 +224,7 @@ var FormValidation = function () {
         //main function to initiate the module
         init: function () {
 
-            schedulesValidation();
+            scheduleDetailsValidation();
 
         }
 
@@ -237,7 +237,7 @@ var FormValidation = function () {
  *
  */ 
 
-jQuery(document).ready(function() {
+jQuery(document).ready(function() {    
     FormValidation.init();
 });
 
@@ -248,17 +248,17 @@ jQuery(document).ready(function() {
 
 $(document.body).on("change",".select2select",function(){
 
-    select2Change($(this), $('#form_schedules'));
+    select2Change($(this), $('#form_schedule_details'));
 
 });
 
-/*
- * Datetime Picker validation
- *
- */ 
+// Reset Validation
+function resetValidation(){
+    $('#form_schedule_details').each(function(){
+        $(this).find('.form-group').removeClass('has-error').removeClass('has-success');            
+        $(this).find('.fa').removeClass('fa-check').removeClass('fa-warning');
+    });
 
-$(document.body).on("change",".datetimeinput",function(){    
-
-    select2Change($(this), $('#form_schedules'));
-
-});
+    $('.alert-danger', $('#form_schedule_details')).hide();
+    $('.alert-success', $('#form_schedule_details')).hide();
+}
