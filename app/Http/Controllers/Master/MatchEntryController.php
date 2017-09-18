@@ -33,7 +33,7 @@ class MatchEntryController extends Controller
 
         $data = MatchEntry::where('match_entries.deleted_at', null)
                     ->join('type_sports', 'match_entries.typesport_id', '=', 'type_sports.id')                
-                    ->select('match_entries.*', 'type_sports.name as typesport_name')->get();
+                    ->select('match_entries.*', 'type_sports.name as typesport_name', 'type_sports.gender_type as gender_type')->get();
 
         return $this->makeTable($data);
     }

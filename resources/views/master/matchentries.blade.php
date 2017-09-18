@@ -26,7 +26,7 @@
 	    <div class="portlet light bordered">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="icon-support font-green"></i>
+					<i class="fa fa-ticket font-green"></i>
 					<span class="caption-subject font-green sbold uppercase">MATCH ENTRIES</span>
 				</div>
 	        </div>
@@ -54,8 +54,9 @@
                         	<thead>
                             	<tr>
                             		<th> No. </th>                            
-                                	<th> Code </th>                            
-                                    <th> Type Sport </th>                            
+                                	<th> Code </th>                           
+                                    <th> Type Sport </th>
+                                    <th> Gender </th>
                                     <th> Description </th>
                                     <th> Options </th>                        
                                 </tr>
@@ -195,14 +196,15 @@
 	        "columns": [
 	            {data: 'id', name: 'id', visible: false, searchable: false},
 	            {data: 'code', name: 'code'},                
-                {data: 'typesport_name', name: 'typesport_name'},                
+                {data: 'typesport_name', name: 'typesport_name'},
+                {data: 'gender_type', name: 'gender_type'},
 	            {data: 'description', name: 'description', sortable: false},
 	            {data: 'action', name: 'action', searchable: false, sortable: false},           
 	        ],
 	        "columnDefs": [
         		{"className": "dt-center", "targets": [0]},
                 {"className": "dt-center", "targets": [1]},
-                {"className": "dt-center", "targets": [4]},
+                {"className": "dt-center", "targets": [3]},
       		],
             "order": [ [1, 'desc'] ],
     	});

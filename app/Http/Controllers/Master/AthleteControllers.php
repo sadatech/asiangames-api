@@ -35,8 +35,9 @@ class AthleteControllers extends Controller
     public function masterDataTable(){
 
         $data = Athlete::where('athletes.deleted_at', null)
-                    ->join('countries', 'athletes.country_id', '=', 'countries.id')                    
-                    ->select('athletes.*', 'countries.name as country_name', 'countries.code as country_code')->get();
+                    ->join('countries', 'athletes.country_id', '=', 'countries.id')           
+                    ->join('type_sports', 'athletes.typesport_id', '=', 'type_sports.id')
+                    ->select('athletes.*', DB::raw('CONCAT(athletes.firstname, " ", athletes.lastname) as fullname'), 'countries.name as country_name', 'countries.code as country_code', 'type_sports.name as typesport_name')->get();
 
         return $this->makeTable($data);
     }
@@ -58,6 +59,17 @@ class AthleteControllers extends Controller
     public function makeTable($data){
 
         return Datatables::of($data)
+                ->editColumn('height', function ($item) {
+                    return $item->height." cm";                    
+                })
+                ->editColumn('weight', function ($item) {
+                    return $item->weight." kg";                    
+                })
+                ->editColumn('country_name', function ($item) {
+
+                    return "(".$item->country_code.") ".$item->country_name;
+                    
+                })
                 ->editColumn('photo', function ($item) {    
                                    
                     try{
@@ -111,7 +123,11 @@ class AthleteControllers extends Controller
     {
         $this->validate($request, [
             'firstname' => 'required',
+            'gender_type' => 'required',
+            'height' => 'numeric|min:2',
+            'weight' => 'numeric|min:2',
             'country_id' => 'required',
+            'typesport_id' => 'required',
             'photo_file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
@@ -161,7 +177,11 @@ class AthleteControllers extends Controller
     {
         $this->validate($request, [
             'firstname' => 'required',
+            'gender_type' => 'required',
+            'height' => 'numeric|min:2',
+            'weight' => 'numeric|min:2',
             'country_id' => 'required',
+            'typesport_id' => 'required',
             'photo_file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 

@@ -89,6 +89,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('scheduledetails/edit/{id}', 'Master\ScheduleDetailController@edit');
 	Route::patch('scheduledetails/{id}', 'Master\ScheduleDetailController@update');
 	Route::delete('scheduledetails/{id}', 'Master\ScheduleDetailController@destroy');
+	Route::delete('scheduledetailsone/{scid}/{meid}', 'Master\ScheduleDetailController@destroyOne');
 
 	/* Utilities */
 
@@ -119,6 +120,9 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('data/athletes', ['as'=> 'data.athletes','uses'=>'Master\AthleteControllers@getDataWithFilters']);
 	Route::post('data/matchentries', ['as'=> 'data.matchentries','uses'=>'Master\MatchEntryController@getDataWithFilters']);
 	Route::post('data/schedules', ['as'=> 'data.schedules','uses'=>'Master\ScheduleController@getDataWithFilters']);
+
+	/* Util Method(s) */
+	Route::post('util/checkscheduledetail', ['as'=> 'util.checkscheduledetail','uses'=>'UtilController@checkScheduleDetail']);
 
 	/* Page(s) & etc */
 

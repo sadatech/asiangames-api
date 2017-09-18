@@ -79,7 +79,7 @@
                         </li>
                         <li class="nav-item start active open">
                             <a href="{{ url('matchentries') }}" class="nav-link nav-toggle">
-                                <i class="fa fa-calendar-minus-o"></i>
+                                <i class="fa fa-ticket"></i>
                                 <span class="title">Match Entries</span>
                                 @if(Request::is('matchentries*'))
                                     <span class="selected"></span>                 
@@ -88,7 +88,7 @@
                         </li>
                         <li class="nav-item start active open">
                             <a href="{{ url('scheduledetails') }}" class="nav-link nav-toggle">
-                                <i class="fa fa-calendar-minus-o"></i>
+                                <i class="fa fa-edit"></i>
                                 <span class="title">Schedule Details</span>
                                 @if(Request::is('scheduledetails*'))
                                     <span class="selected"></span>                 

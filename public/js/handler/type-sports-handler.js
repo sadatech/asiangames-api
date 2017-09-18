@@ -22,6 +22,9 @@ var FormValidation = function () {
                         minlength: 2,
                         required: true,
                     },
+                    gendertype:{
+                        required: true
+                    }
                     kindsport:{
                         required: true,
                     },

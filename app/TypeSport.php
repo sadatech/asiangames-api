@@ -12,7 +12,7 @@ class TypeSport extends Model
 
     //
     protected $fillable = [
-        'name', 'description', 'kindsport_id'
+        'name', 'description', 'kindsport_id', 'gender_type'
     ];
 
     /**
