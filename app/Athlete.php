@@ -12,7 +12,7 @@ class Athlete extends Model
 
     //
     protected $fillable = [
-        'firstname', 'lastname', 'country_id', 'photo'
+        'firstname', 'lastname', 'country_id', 'typesport_id', 'photo', 'height', 'weight', 'gender_type'
     ];
 
     /**
@@ -37,6 +37,11 @@ class Athlete extends Model
     public function matchGroups()
     {
         return $this->hasMany('App\MatchGroup', 'athlete_id');
+    }
+
+    public function typeSport()
+    {
+        return $this->belongsTo('App\TypeSport', 'typesport_id');
     }
 
     /**

@@ -87,53 +87,74 @@ class ScheduleDetailController extends Controller
                     return $this->convertDateTime($item->datetime);
                 })
                 ->editColumn('matchentry_description', function ($item) {
-                    // return "MATCH ENTRY MATCH ENTRY MATCH ENTRY";
+                    // return "MATCH ENTRY MATCH ENTRY MATCH ENTRY";                    
 
                 	$matchEntryIds = ScheduleDetail::where('schedule_id', $item->id)->pluck('matchentry_id');
-                	$matchEntries = MatchEntry::whereIn('id', $matchEntryIds)->get();
-                    $matchGroups = MatchGroup::whereIn('matchentry_id', $matchEntryIds);                    
-
-                    // dd($matchEntries->get());
-
-                    $matchEntryContent = "";
+                	$matchEntries = MatchEntry::whereIn('id', $matchEntryIds)->get();                                                          
+                    $matchEntryContent = "";                    
 
                     foreach ($matchEntries as $data) {
 
-                    $description = $this->replaceSingleQuote($data->description);
+                    	$athleteHeader = "";
+                    	$athleteContent = "";
+	                    $athleteIds = MatchGroup::where('matchentry_id', $data->id)->pluck('athlete_id');
+	                    $athletes = Athlete::whereIn('id', $athleteIds)->get();
 
-                    $matchEntryContent .= '<div class="portlet box purple" style="margin-bottom: 5px;">'.
-				                                '<div class="portlet-title">'.
-				                                    '<div class="caption">'.
-				                                        '<span style="font-size: 14px;"> '.$data->code.' - '.str_limit($description, 50).' </span> </div>'.
-				                                    '<div class="tools">'.
-				                                        '<a href="" class="expand" data-original-title="" title=""> </a>'.
-				                                    '</div>'.
-				                                '</div>'.
-				                                '<div class="portlet-body" style="display: none;">'.
-				                                 	'<button>AAAA</button>'.
-				                                '</div>'.
-				                            '</div>';
+	                    if($athletes->count() > 0){
+
+	                    	$athleteHeader = '<div class="row" style="margin: 3px;">'.
+	                							'<div class="col-md-6">'.
+	                								'<b>Athlete Name</b>'.
+	                							'</div>'.
+	                							'<div class="col-md-6">'.
+	                								'<b>Country</b>'.
+	                							'</div>'.
+	                						'</div>';
+
+		                    foreach ($athletes as $athleteData) {	                                 
+		                    	
+		                    	$athleteContent .=  '<div class="row" style="margin: 3px; margin-bottom: 10px;">'.
+		                    							'<div class="col-md-6">'.
+		                    								$athleteData->firstname.' '.$athleteData->lastname.
+		                    							'</div>'.
+		                    							'<div class="col-md-6">'.
+		                    								$athleteData->country->name.
+		                    							'</div>'.
+		                    						'</div>';
+		                    	
+
+		                    }
+		                }else{
+		                	$athleteHeader = '<div class="row" style="margin: 3px;">'.
+	                							'<div class="col-md-12" style="text-align: center;">'.
+	                								'<b>No Athlete in Match Entry</b>'.
+	                							'</div>'.
+	                						'</div>';
+		                }
+
+	                    $description = $this->replaceSingleQuote($data->description);
+
+                    	$matchEntryContent .= 	'<div class="portlet box blue" style="margin-bottom: 5px; min-width: 350px;">'.
+					                                '<div class="portlet-title">'.
+					                                    '<div class="caption">'.				                                    	
+					                                        '<span style="font-size: 14px;"> '.
+					                                        	'<a class="match-entry-delete" data-scid="'.$item->id.'" data-meid="'.$data->id.'"><i class="fa fa-remove" style="color: white; width: 11px; height: 16px; margin-right: 10px;"></i></a>'.
+					                                        	'<a class="open-description-modal" data-target="#description-modal" data-toggle="modal" data-title="Match Entry Description (Code : '.$data->code.')" data-description="'.$description.'" style="color: white;text-decoration: none;">'.
+					                                        		$data->code.' - '.str_limit($description, 30).
+					                                        	'</a>'.
+					                                        ' </span> </div>'.
+					                                    '<div class="tools">'.
+					                                        '<a href="" class="expand" data-original-title="See participants" title="See participants"> </a>'.
+					                                    '</div>'.
+					                                '</div>'.
+					                                '<div class="portlet-body" style="display: none; padding-bottom: 7px; white-space: normal; word-wrap: break-word;">'.
+					                                	$athleteHeader.
+					                                 	$athleteContent.
+					                                '</div>'.
+					                            
+					                            '</div>';
                     }
-
-                    
-
-					foreach ($matchEntries as $data) {						
-					            
-					// $matchEntryContent .= '<div>
-					// 						<button style="width: 100%; margin: 0;" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#'.$data->code.'">'.$data->code.' - '.str_limit($description, 50).'</button>
-					// 						<div id="'.$data->code.'" class="collapse" style="padding: 20px;">
-					// 							<button>AAAA</button>
-					// 						</div>
-					// 					</div>';
-
-                    }
-
-                    $match = '<div>
-                    		<button style="width: 100%; margin: 0;" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">Simple collapsible</button>';
-                    $match .= '<div id="demo" class="collapse" style="padding: 20px;"><button>AAAA</button></div></div>';
-
-
-                    $dd = '<button>OK</button>';
+                   
                     return $matchEntryContent;
                 })
                 ->editColumn('description', function ($item) {
@@ -237,5 +258,18 @@ class ScheduleDetailController extends Controller
         $scheduleDetails = ScheduleDetail::where('schedule_id', $id)->delete();
 
         return response()->json($id);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyOne($scheduleId, $matchEntryId)
+    {
+        $scheduleDetails = ScheduleDetail::where('schedule_id', $scheduleId)->where('matchentry_id', $matchEntryId)->delete();
+
+        return response()->json(['responseText' => 'Success!']);
     }
 }

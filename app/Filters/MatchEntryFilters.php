@@ -5,6 +5,7 @@ namespace App\Filters;
 use App\MatchEntry;
 use App\Schedule;
 use App\TypeSport;
+use App\ScheduleDetail;
 use Illuminate\Http\Request;
 
 class MatchEntryFilters extends QueryFilters
@@ -84,6 +85,18 @@ class MatchEntryFilters extends QueryFilters
 
         return $this->builder;
 
+    }
+
+    /**
+     * Search by not in id in schedule details
+     */
+    public function notInScheduleDetail($scheduleId){      
+        
+        $matchEntryIds = ScheduleDetail::where('schedule_id', $scheduleId)->pluck('matchentry_id');
+
+        // dd($matchEntryIds);
+
+        return $this->builder->whereNotIn('id', $matchEntryIds);
     }
 
 }

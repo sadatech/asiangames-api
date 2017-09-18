@@ -34,6 +34,11 @@ class Schedule extends Model
         return $this->belongsTo('App\TypeSport', 'typesport_id');
     }
 
+    public function scheduleDetails()
+    {
+        return $this->hasMany('App\scheduleDetail', 'schedule_id');
+    }
+
 	/**
      * Filtering Branch Sport Berdasarakan Request User
      * @param $query

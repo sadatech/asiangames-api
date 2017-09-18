@@ -95,7 +95,28 @@
               				</div>
 				            
 				          </div>
-				        </div>				        			        		    
+				        </div>	
+
+				        <div class="form-group">
+				          <label class="col-sm-2 control-label">Gender Type</label>
+				          <div class="col-sm-9">
+
+				          <div class="input-group" style="width: 100%;">
+     
+                                <select class="select2select" name="gender_type" id="gendertype" required>
+                                	<option value="MALE" {{ (@$data->gender_type == 'MALE') ? "selected" : "" }}>MALE</option>
+                                	<option value="FEMALE" {{ (@$data->gender_type == 'FEMALE') ? "selected" : "" }}>FEMALE</option>
+                                	<option value="MIXED" {{ (@$data->gender_type == 'MIXED') ? "selected" : "" }}>MIXED</option>
+                                </select>
+                               	
+                                <span class="input-group-addon display-hide">
+                                	<i class="fa"></i>
+                                </span>
+
+              				</div>
+				            
+				          </div>
+				        </div>			        			        		    
 				        
 				        <div class="form-group">
 				          <label class="col-sm-2 control-label">Description</label>
@@ -139,7 +160,7 @@
 	            }
 	        });
 
-	       $('#kindsport').select2(setOptions('{{ route("data.kindsports") }}', 'Kind Sport', function (params) {
+	       	$('#kindsport').select2(setOptions('{{ route("data.kindsports") }}', 'Kind Sport', function (params) {
                         // console.log(params);
                         return filterData('name', params.term);
                     }, function (data, params) {
@@ -149,6 +170,11 @@
                             })
                         }
                     }));
+
+	      	$('#gendertype').select2({
+                        width: '100%',
+                        placeholder: 'Gender Type'
+                    })
 
 	       // Set select2 => 'branchsport' if method PATCH	       
 	       setSelect2IfPatch($("#kindsport"), "{{ @$data->kindsport_id }}", "{{ @$data->kindSport->name }}");	     	      

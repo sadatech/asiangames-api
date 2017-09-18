@@ -26,7 +26,7 @@
 	    <div class="portlet light bordered">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="icon-support font-green"></i>
+					<i class="fa fa-edit font-green"></i>
 					<span class="caption-subject font-green sbold uppercase">SCHEDULE DETAILS</span>
 				</div>
 	        </div>
@@ -92,6 +92,9 @@
 <!-- BEGIN PAGE VALIDATION SCRIPTS -->
 <script src="{{ asset('js/handler/schedule-details-handler.js') }}" type="text/javascript"></script>
 <!-- END PAGE VALIDATION SCRIPTS -->
+<!-- BEGIN UTILITIES SCRIPTS -->
+<script src="{{ asset('js/handler/util.js') }}" type="text/javascript"></script>
+<!-- END UTILITIES SCRIPTS -->
 
 <script>
 
@@ -183,7 +186,6 @@
                 });
         });
 
-
         // Init select2
         initSelect2Schedule();
         initSelect2MatchEntry();
@@ -241,31 +243,74 @@
     $('#detailsSchedule').on('select2:select', () => {
 
         filters['byTypeSportSchedule'] = $('#detailsSchedule').val();
+        filters['notInScheduleDetail'] = $('#detailsSchedule').val();
     })
-
-    // Set typesport when select
-    // $('#detailsMatchEntry').on('select2:select', () => {
-    //     alert($('#detailsMatchEntry').val());
-    //     filters = {};
-    //     filters['byTypeSport'] = $('#detailsMatchEntry').val();
-    // })
-
-    // Set typesport when select
-    // $('#detailsMatchEntry').on('select2:select', () => {
-    //     alert($('#detailsMatchEntry').val());
-    //     filters = {};
-    //     // filters['byTypeSport'] = $('#detailsMatchEntry').val();
-    // })
 
     // Set typesport when change
     $('#detailsMatchEntry').on('change', (e) => {
 
         if($('#detailsMatchEntry').val()){
             filters['byTypeSportScheduleFromMatchEntry'] = $('#detailsMatchEntry').val();
-            filters['byTypeSportMatchEntry'] = $('#detailsMatchEntry').val();
+            filters['byTypeSportMatchEntry'] = $('#detailsMatchEntry').val();            
             filters['notWithId'] = $('#detailsMatchEntry').val();
         }
     })
+
+    // Delete per match entry
+    $(document).on("click", ".match-entry-delete", function () {               
+
+        var scid = $(this).data('scid');
+        var meid = $(this).data('meid');
+        var element = $(this).parent().parent().parent().parent();
+
+        // Check if schedule detail has exactly one match entry
+        if(checkScheduleDetail(scid) == 1){
+            swal("Warning", "Schedule Detail must have one or more Match Entry.", "warning");
+            return;
+        }
+
+        // Delete data
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover data!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Yes, delete it",
+            cancelButtonText: "No, cancel",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+        function (isConfirm) {
+            if (isConfirm) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                })
+
+
+                $.ajax({
+
+                    type: "DELETE",
+                    url:  'scheduledetailsone/' + scid + '/' + meid,
+                    success: function (data) {
+                        // Remove element
+                        element.remove();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });                        
+
+                swal("Deleted!", "Data has been deleted.", "success");
+            } else {
+                swal("Cancelled", "Data is safe ", "success");
+            }
+        });
+
+
+    });
 
 
 </script>

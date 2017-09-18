@@ -35,6 +35,16 @@ class MatchEntry extends Model
         return $this->belongsTo('App\TypeSport', 'typesport_id');
     }
 
+    public function matchGroups()
+    {
+        return $this->hasMany('App\MatchGroup', 'matchentry_id');
+    }
+
+    public function scheduleDetails()
+    {
+        return $this->hasMany('App\scheduleDetail', 'matchentry_id');
+    }
+
 	/**
      * Filtering Branch Sport Berdasarakan Request User
      * @param $query

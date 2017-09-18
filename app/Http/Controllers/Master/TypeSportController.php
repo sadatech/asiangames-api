@@ -93,6 +93,7 @@ class TypeSportController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'kindsport_id' => 'required',
+            'gender_type' => 'required',
             ]);
 
        	$typeSport = TypeSport::create($request->all());       	
@@ -136,6 +137,7 @@ class TypeSportController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'kindsport_id' => 'required',
+            'gender_type' => 'required',
             ]);
 
         $typeSport = TypeSport::find($id)->update($request->all());

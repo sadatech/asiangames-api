@@ -29,6 +29,16 @@ class ScheduleDetail extends Model
      *
      */
 
+    public function matchEntry()
+    {
+        return $this->belongsTo('App\MatchEntry', 'matchentry_id');
+    }
+
+    public function schedule()
+    {
+        return $this->belongsTo('App\Schedule', 'schedule_id');
+    }
+
 	/**
      * Filtering Branch Sport Berdasarakan Request User
      * @param $query

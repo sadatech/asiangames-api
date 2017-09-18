@@ -50,6 +50,7 @@
                     		<th> No. </th>                            
                         	<th> Type Sport's Name </th>
                             <th> Kind Sport </th>
+                            <th> Gender Type </th>
                             <th> Description </th>
                             <th> Options </th>                             
                         </tr>
@@ -97,12 +98,14 @@
 	            {data: 'id', name: 'id'},
 	            {data: 'name', name: 'name'},
                 {data: 'kindsport_name', name: 'kindsport_name'},
+                {data: 'gender_type', name: 'gender_type'},
 	            {data: 'description', name: 'description', sortable: false},
 	            {data: 'action', name: 'action', searchable: false, sortable: false},                
 	        ],
 	        "columnDefs": [
         		{"className": "dt-center", "targets": [0]},
-                {"className": "dt-center", "targets": [4]},
+                {"className": "dt-center", "targets": [5]},
+                {"className": "dt-center", "targets": [3]},
       		],
             "order": [ [0, 'desc'] ],
     	});

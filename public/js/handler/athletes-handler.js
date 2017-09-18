@@ -22,10 +22,21 @@ var FormValidation = function () {
                         minlength: 2,
                         required: true,
                     },
+                    height:{
+                        number: true
+                    },
+                    weight:{
+                        number: true
+                    },
+                    gendertype:{
+                        required: true
+                    }
                     country:{
                         required: true,
                     },
-
+                    typesport:{
+                        required: true,
+                    }
                 },
                 messages:{
                     country:{

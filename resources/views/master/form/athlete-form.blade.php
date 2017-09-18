@@ -91,6 +91,46 @@
 				        </div>
 
 				        <div class="form-group">
+				          <label class="col-sm-2 control-label">Gender Type</label>
+				          <div class="col-sm-9">
+
+				          <div class="input-group" style="width: 100%;">
+     
+                                <select class="select2select" name="gender_type" id="gendertype" required>
+                                	<option value="MALE" {{ (@$data->gender_type == 'MALE') ? "selected" : "" }}>MALE</option>
+                                	<option value="FEMALE" {{ (@$data->gender_type == 'FEMALE') ? "selected" : "" }}>FEMALE</option>
+                                </select>
+                               	
+                                <span class="input-group-addon display-hide">
+                                	<i class="fa"></i>
+                                </span>
+
+              				</div>
+				            
+				          </div>
+				        </div>	
+
+				        <div class="form-group">
+				          <label class="col-sm-2 control-label">Height</label>
+				          <div class="col-sm-9">
+				          	<div class="input-icon right">
+				          		<i class="fa"></i>
+				            	<input type="text" name="height" class="form-control" value="{{ @$data->height }}" placeholder="Input Height (cm)" />
+				            </div>
+				          </div>
+				        </div>
+
+				        <div class="form-group">
+				          <label class="col-sm-2 control-label">Weight</label>
+				          <div class="col-sm-9">
+				          	<div class="input-icon right">
+				          		<i class="fa"></i>
+				            	<input type="text" name="weight" class="form-control" value="{{ @$data->weight }}" placeholder="Input Weight (kg)" />
+				            </div>
+				          </div>
+				        </div>
+
+				        <div class="form-group">
 				          <label class="col-sm-2 control-label">Country</label>
 				          <div class="col-sm-9">
 
@@ -105,7 +145,24 @@
               				</div>
 				            
 				          </div>
-				        </div>				        			        		    
+				        </div>
+
+				        <div class="form-group">
+				          <label class="col-sm-2 control-label">Type Sport</label>
+				          <div class="col-sm-9">
+
+				          <div class="input-group" style="width: 100%;">
+     
+                                <select class="select2select" name="typesport_id" id="typesport" required></select>
+                               	
+                                <span class="input-group-addon display-hide">
+                                	<i class="fa"></i>
+                                </span>
+
+              				</div>
+				            
+				          </div>
+				        </div>					        			        		    
 
 
 				        <!-- View for old image * PHOTO * -->
@@ -185,8 +242,27 @@
                         }
                     }));
 
+
+	       $('#typesport').select2(setOptions('{{ route("data.typesports") }}', 'Type Sport', function (params) {
+                        // console.log(params);
+                        return filterData('name', params.term);
+                    }, function (data, params) {
+                        return {
+                            results: $.map(data, function (obj) {                                
+                                return {id: obj.id, text: obj.name}
+                            })
+                        }
+                    }));
+
+
+	       $('#gendertype').select2({
+                        width: '100%',
+                        placeholder: 'Gender Type'
+                    })
+
 	       // Set select2 => 'country' if method PATCH	       
-	       setSelect2IfPatch($("#country"), "{{ @$data->country_id }}", "({{ @$data->country->code }}) {{ @$data->country->name }}");		           	     
+	       setSelect2IfPatch($("#country"), "{{ @$data->country_id }}", "({{ @$data->country->code }}) {{ @$data->country->name }}");	
+	       setSelect2IfPatch($("#typesport"), "{{ @$data->typesport_id }}", "{{ @$data->typeSport->name }}");	           	     
 
 		});
 

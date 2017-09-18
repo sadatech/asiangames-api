@@ -48,9 +48,12 @@
                 	<thead>
                     	<tr>
                     		<th> No. </th>
-                            <th> Firstname </th>
-                        	<th> Lastname </th>
+                            <th> Athlete's Name </th>
+                            <th> Gender </th>
+                        	<th> Height </th>
+                            <th> Weight </th>                        
 							<th> Country </th>
+                            <th> Type Sport </th>
                             <th> Photo </th>
                             <th> Options </th>                             
                         </tr>
@@ -106,16 +109,21 @@
 	        "rowId": "id",
 	        "columns": [
 	            {data: 'id', name: 'id'},                
-	            {data: 'firstname', name: 'firstname'},
-                {data: 'lastname', name: 'lastname'},
+	            {data: 'fullname', name: 'fullname'},
+                {data: 'height', name: 'height'},
+                {data: 'weight', name: 'weight'},
+                {data: 'gender_type', name: 'gender_type'},
                 {data: 'country_name', name: 'country_name'},
+                {data: 'typesport_name', name: 'typesport_name'},
                 {data: 'photo', name: 'photo', searchable: false, sortable: false},
 	            {data: 'action', name: 'action', searchable: false, sortable: false},                
 	        ],
 	        "columnDefs": [
         		{"className": "dt-center", "targets": [0]},
+                {"className": "dt-center", "targets": [2]},
+                {"className": "dt-center", "targets": [3]},
                 {"className": "dt-center", "targets": [4]},
-                {"className": "dt-center", "targets": [5]}
+                {"className": "dt-center", "targets": [8]}
       		],
             "order": [ [0, 'desc'] ],
     	});
