@@ -24,7 +24,7 @@ var FormValidation = function () {
                     },
                     gendertype:{
                         required: true
-                    }
+                    },
                     kindsport:{
                         required: true,
                     },

@@ -124,6 +124,7 @@
                                 <tr>
                                     <th> No. </th>                            
                                     <th> Name </th>                            
+                                    <th> Gender </th>
                                     <th> Country </th>                                                                
                                     <th> Options </th>                        
                                 </tr>
@@ -214,7 +215,12 @@
         $('#matchEntriesTable').on('click', 'tr td button.deleteButton', function () {
             var id = $(this).val();
 
-            if(athleteMatchGroupRelation(id) > 0){
+            if(matchEntryMatchGroupRelation(id) > 0){
+                swal("Warning", "This data still related to others! Please check the relation first.", "warning");
+                return;
+            }
+
+            if(matchEntryScheduleDetailsRelation(id) > 0){
                 swal("Warning", "This data still related to others! Please check the relation first.", "warning");
                 return;
             }
@@ -424,6 +430,7 @@
             "columns": [
                 {data: 'id', name: 'id', visible: false},
                 {data: 'fullname', name: 'fullname'},                
+                {data: 'gender', name: 'gender'},
                 {data: 'country', name: 'country'},                                
                 {data: 'action', name: 'action', searchable: false, sortable: false},           
             ],

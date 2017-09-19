@@ -138,6 +138,8 @@
                 return;
             }
 
+            return;
+
             	swal({
 					title: "Are you sure?",
                     text: "You will not be able to recover data!",
