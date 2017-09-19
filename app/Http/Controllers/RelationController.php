@@ -9,6 +9,8 @@ use App\TypeSport;
 use App\Athlete;
 use App\MatchEntry;
 use App\MatchGroup;
+use App\Schedule;
+use App\ScheduleDetail;
 
 class RelationController extends Controller
 {
@@ -37,6 +39,18 @@ class RelationController extends Controller
         return response()->json($countMatchEntry);
     }
 
+    public function typeScheduleRelation(Request $request){
+        $countSchedule = Schedule::where('typesport_id', $request->typeSportId)->count();
+
+        return response()->json($countSchedule);
+    }
+
+    public function typeAthleteRelation(Request $request){
+        $countAthlete = Athlete::where('typesport_id', $request->typeSportId)->count();
+
+        return response()->json($countAthlete);
+    }
+
     public function athleteMatchGroupRelation(Request $request){
         $countMatchGroup = MatchGroup::where('athlete_id', $request->athleteId)->count();
 
@@ -48,4 +62,16 @@ class RelationController extends Controller
 
         return response()->json($countMatchGroup);
     }    
+
+    public function matchEntryScheduleDetailsRelation(Request $request){
+        $countScheduleDetails = ScheduleDetail::where('matchentry_id', $request->matchEntryId)->count();
+
+        return response()->json($countScheduleDetails);
+    }    
+
+    public function scheduleScheduleDetailsRelation(Request $request){
+        $countScheduleDetails = ScheduleDetail::where('schedule_id', $request->scheduleId)->count();
+
+        return response()->json($countScheduleDetails);
+    }   
 }

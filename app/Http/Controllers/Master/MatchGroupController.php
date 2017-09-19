@@ -25,7 +25,7 @@ class MatchGroupController extends Controller
         			->join('match_entries', 'match_groups.matchentry_id', '=', 'match_entries.id')
                     ->join('athletes', 'match_groups.athlete_id', '=', 'athletes.id')
                     ->join('countries', 'athletes.country_id','=', 'countries.id')
-                    ->select('match_groups.*', DB::raw('CONCAT(athletes.firstname, " ", athletes.lastname) as fullname'), DB::raw('CONCAT("(", countries.code, ") ", countries.name) as country'))
+                    ->select('match_groups.*', DB::raw('CONCAT(athletes.firstname, " ", athletes.lastname) as fullname'), 'athletes.gender_type as gender', DB::raw('CONCAT("(", countries.code, ") ", countries.name) as country'))
         			->get();
 
         // If there is request for match group by match entry
